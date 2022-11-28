@@ -23,5 +23,4 @@ public class Account {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "person_id", nullable = false)
     private Person person;
-
 }
