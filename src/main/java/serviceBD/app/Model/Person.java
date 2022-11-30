@@ -1,11 +1,9 @@
 package serviceBD.app.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
-
-
 import org.hibernate.annotations.DynamicUpdate;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Data
 @Entity
@@ -31,20 +29,13 @@ public class Person {
 
     @Column(name = "tel")
     private String tel;
-
     @Column(name = "image")
     private String image;
 
-    @Column(name = "function")
+    @Column(name = "type_profil")
     private String function;
-
     @ManyToOne
     @JoinColumn(name = "service_id")
     @JsonIgnore
     private Service service;
-
-    // @OneToOne(fetch = FetchType.LAZY, optional = false)
-    // @JoinColumn(name = "service_id", nullable = false)
-    // @JsonIgnore
-    // private Service service;
 }
