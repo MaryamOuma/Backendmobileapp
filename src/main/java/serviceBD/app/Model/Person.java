@@ -33,7 +33,7 @@ public class Person {
     private String image;
 
     @Column(name = "type_profil")
-    private String function;
+    private String typeProfil;
     @ManyToOne
     @JoinColumn(name = "service_id")
     @JsonIgnore
