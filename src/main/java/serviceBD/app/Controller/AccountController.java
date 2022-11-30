@@ -17,8 +17,7 @@ import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.Optional;
 
-import static serviceBD.app.config.Encryption.createSecretKey;
-import static serviceBD.app.config.Encryption.encrypt;
+import static serviceBD.app.config.Encryption.*;
 
 @RestController
 @CrossOrigin(origins = {"*"})
@@ -56,28 +55,27 @@ public class AccountController {
         return new ResponseEntity<>(acc, HttpStatus.CREATED);
     }
     @PostMapping ("/login")
-    public ResponseEntity<Account> gatAcc(@RequestParam("username") String username , @RequestParam("password") String password) throws GeneralSecurityException, IOException {
+    @ResponseBody
+    public ResponseEntity<Account> gatAcc(@RequestBody Account account) throws GeneralSecurityException, IOException {
         //accountService.saveAccount(account);
-        Optional<Account> optionalAccount = accountRepository.findByUsername(username);
+        Optional<Account> optionalAccount = accountRepository.findByUsername(account.getUsername());
         if (optionalAccount.isPresent()) {
             Account acc = optionalAccount.get();
             byte[] salt = new String("12345678").getBytes();
             int iterationCount = 40000;
             int keyLength = 128;
+            String password= account.getPassword();
             SecretKeySpec key = createSecretKey(password.toCharArray(), salt, iterationCount, keyLength);
-            String originalPassword = password;
-            String encryptedPassword = encrypt(originalPassword, key);
-            // String decryptedPassword = decrypt(encryptedPassword, key);
-            if (encryptedPassword.equals(acc.getPassword())) {
-                System.out.println("sign in succesfull");
+           // String encryptedPassword = encrypt(password, key);
+            String decryptedPassword = decrypt(acc.getPassword(), key);
+            if (password.equals(decryptedPassword)) {
               return new ResponseEntity<>(acc, HttpStatus.ACCEPTED);
             } else {
-               return new ResponseEntity<>(acc, HttpStatus.BAD_REQUEST);
+               return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             }
         }else {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
-        //return  "accueil";
     }
 
 

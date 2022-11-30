@@ -1,4 +1,5 @@
 package serviceBD.app.Model;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.Set;
@@ -9,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @DynamicUpdate
 @Table(name = "service")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Service{
     @Id
     @Column(name = "service_id", nullable = false)
