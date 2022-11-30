@@ -1,5 +1,6 @@
 package serviceBD.app.Controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +57,9 @@ public class AccountController {
     }
     @PostMapping ("/login")
     @ResponseBody
-    public ResponseEntity<Account> gatAcc(@RequestBody Account account) throws GeneralSecurityException, IOException {
+    public ResponseEntity<Account> gatAcc(@RequestBody Account account, HttpSession session) throws GeneralSecurityException, IOException {
         //accountService.saveAccount(account);
+        System.out.println("hiiiii");
         Optional<Account> optionalAccount = accountRepository.findByUsername(account.getUsername());
         if (optionalAccount.isPresent()) {
             Account acc = optionalAccount.get();
@@ -69,7 +71,9 @@ public class AccountController {
            // String encryptedPassword = encrypt(password, key);
             String decryptedPassword = decrypt(acc.getPassword(), key);
             if (password.equals(decryptedPassword)) {
-              return new ResponseEntity<>(acc, HttpStatus.ACCEPTED);
+                session.setAttribute("username", acc.getUsername());
+                session.setAttribute("pwd", acc.getPassword());
+                return new ResponseEntity<>(acc, HttpStatus.ACCEPTED);
             } else {
                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             }
@@ -77,8 +81,4 @@ public class AccountController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
-
-
-
-
 }
