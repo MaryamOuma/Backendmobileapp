@@ -35,8 +35,8 @@ public class Person {
     @Column(name = "image")
     private String image;
 
-    @Column(name = "function")
-    private String function;
+    @Column(name = "type_profil")
+    private String typeProfil;
 
     @ManyToOne
     @JoinColumn(name = "service_id")
