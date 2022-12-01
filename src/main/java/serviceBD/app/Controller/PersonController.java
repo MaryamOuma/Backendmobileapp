@@ -16,6 +16,7 @@ import serviceBD.app.Model.Person;
 
 @RestController
 @RequestMapping("/employees")
+
 @CrossOrigin
 public class PersonController {
 
