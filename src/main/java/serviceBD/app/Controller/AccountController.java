@@ -46,14 +46,16 @@ public class AccountController {
         return new ResponseEntity<>(accounts, HttpStatus.ACCEPTED);
     }
     @PostMapping("/save")
-    public ResponseEntity<Account> saveAcc(@RequestBody Account account) throws GeneralSecurityException, UnsupportedEncodingException {
+    public Boolean saveAcc(@RequestBody Account account) throws GeneralSecurityException, UnsupportedEncodingException {
         byte[] salt = new String("12345678").getBytes();
         int iterationCount = 40000;
         int keyLength = 128;
         SecretKeySpec key = createSecretKey(account.getPassword().toCharArray(), salt, iterationCount, keyLength);
         account.setPassword(encrypt(account.getPassword(), key));
         Account acc = accountService.saveAccount(account);
-        return new ResponseEntity<>(acc, HttpStatus.CREATED);
+        if (!accountService.saveAccount(account).equals(null)) {
+            return true;
+        }else  return false;
     }
     @PostMapping ("/login")
     @ResponseBody
