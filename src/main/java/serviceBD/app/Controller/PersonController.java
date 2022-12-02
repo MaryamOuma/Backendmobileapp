@@ -76,6 +76,9 @@ public class PersonController {
     @PostMapping("/save")
     @ResponseBody
     public ResponseEntity<Account> saveAcc(@RequestBody Account account) throws GeneralSecurityException, UnsupportedEncodingException {
+        System.out.println(account.getPerson().getService().getService_title());
+        System.out.println(account.getPerson().getService().getImage());
+        System.out.println(account.getPerson().getService().getId());
         if(personService.savePerson(account.getPerson())) {
             return new ResponseEntity<>(accountController.saveAcc(account), HttpStatus.CREATED);
         }else{
