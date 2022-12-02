@@ -4,15 +4,18 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Data
 @Entity
 @DynamicUpdate
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "person")
 public class Person {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(name = "cin")
     private String cin;
@@ -32,10 +35,13 @@ public class Person {
     @Column(name = "image")
     private String image;
 
-    @Column(name = "function")
-    private String function;
+    @Column(name = "type_profil")
+    private String typeProfil;
+    
+    @Column(name = "description")
+    private String description;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "service_id", nullable = false)
     private Service service;
 }
