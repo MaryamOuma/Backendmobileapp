@@ -1,10 +1,15 @@
 package serviceBD.app.Model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import org.hibernate.annotations.DynamicUpdate;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @DynamicUpdate
 @Table(name = "person")
@@ -35,7 +40,7 @@ public class Person {
     @Column(name = "function")
     private String function;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "service_id", nullable = false)
     private Service service;
 }
