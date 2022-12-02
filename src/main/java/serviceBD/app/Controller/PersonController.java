@@ -31,9 +31,11 @@ public class PersonController {
     PersonService personService;
 
     @PostMapping("/save")
-    public ResponseEntity<Person> saveAcc(@RequestBody Person person,@RequestBody Account account) throws GeneralSecurityException, UnsupportedEncodingException {
-        if(accountController.saveAcc(account)) {
-            return new ResponseEntity<>(person, HttpStatus.CREATED);
+    @ResponseBody
+    public ResponseEntity<Account> saveAcc(@RequestBody Account account) throws GeneralSecurityException, UnsupportedEncodingException {
+        if(personService.savePerson(account.getPerson())) {
+            System.out.println("dkhltt");
+            return new ResponseEntity<>(accountController.saveAcc(account), HttpStatus.CREATED);
         }else{
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }

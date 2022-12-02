@@ -40,6 +40,12 @@ public class Person {
     @Column(name = "type_profil")
     private String typeProfil;
 
+    @Column(name = "adresse")
+    private String adresse;
+
+    @Column(name = "description")
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "service_id")
     @JsonIgnore

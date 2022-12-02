@@ -45,23 +45,19 @@ public class AccountController {
        System.out.println(encryptedPassword);
         return new ResponseEntity<>(accounts, HttpStatus.ACCEPTED);
     }
-    @PostMapping("/save")
-    public Boolean saveAcc(@RequestBody Account account) throws GeneralSecurityException, UnsupportedEncodingException {
+   // @PostMapping("/save")
+    public Account saveAcc(Account account) throws GeneralSecurityException, UnsupportedEncodingException {
         byte[] salt = new String("12345678").getBytes();
         int iterationCount = 40000;
         int keyLength = 128;
         SecretKeySpec key = createSecretKey(account.getPassword().toCharArray(), salt, iterationCount, keyLength);
         account.setPassword(encrypt(account.getPassword(), key));
         Account acc = accountService.saveAccount(account);
-        if (!accountService.saveAccount(account).equals(null)) {
-            return true;
-        }else  return false;
+       return acc;
     }
     @PostMapping ("/login")
     @ResponseBody
     public ResponseEntity<Account> gatAcc(@RequestBody Account account, HttpSession session) throws GeneralSecurityException, IOException {
-        //accountService.saveAccount(account);
-        System.out.println("hiiiii");
         Optional<Account> optionalAccount = accountRepository.findByUsername(account.getUsername());
         if (optionalAccount.isPresent()) {
             Account acc = optionalAccount.get();
@@ -73,8 +69,6 @@ public class AccountController {
            // String encryptedPassword = encrypt(password, key);
             String decryptedPassword = decrypt(acc.getPassword(), key);
             if (password.equals(decryptedPassword)) {
-                session.setAttribute("username", acc.getUsername());
-                session.setAttribute("pwd", acc.getPassword());
                 return new ResponseEntity<>(acc, HttpStatus.ACCEPTED);
             } else {
                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

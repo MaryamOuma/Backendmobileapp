@@ -13,9 +13,13 @@ public class PersonService {
 
 
 
-    public Person savePerson(Person person){
-        return personRepository.save(person);
-
+    public boolean savePerson(Person person){
+       if(personRepository.save(person).equals(null)){
+           return false;
+        }
+        else{
+           return true;
+        }
     }
 
 }
