@@ -13,7 +13,7 @@ public class Service{
     @Id
     @Column(name = "service_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long service_id;
+    private int service_id;
 
     @OneToMany(mappedBy = "service", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -21,4 +21,7 @@ public class Service{
 
     @Column(name = "service_title")
     private String service_title;
+
+    @Column(name="image")
+    private String image;
 }
