@@ -18,7 +18,6 @@ public class Service{
     private Long service_id;
 
     @OneToMany(mappedBy = "service", fetch = FetchType.LAZY)
-    @JsonIgnore
     private Set<Person> personnes;
 
     @Column(name = "service_title")

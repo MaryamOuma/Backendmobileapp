@@ -48,7 +48,6 @@ public class Person {
 
     @ManyToOne
     @JoinColumn(name = "service_id")
-    @JsonIgnore
     private Service service;
 
 

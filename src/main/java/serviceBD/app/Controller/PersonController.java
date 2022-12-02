@@ -34,7 +34,8 @@ public class PersonController {
     @ResponseBody
     public ResponseEntity<Account> saveAcc(@RequestBody Account account) throws GeneralSecurityException, UnsupportedEncodingException {
         if(personService.savePerson(account.getPerson())) {
-            System.out.println("dkhltt");
+            System.out.println(account.getPerson().getService().getService_title());
+            System.out.println(account.getPerson().getService().getService_id());
             return new ResponseEntity<>(accountController.saveAcc(account), HttpStatus.CREATED);
         }else{
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
