@@ -60,7 +60,7 @@ public class AccountController {
     @ResponseBody
     public ResponseEntity<Account> gatAcc(@RequestBody Account account) throws GeneralSecurityException, IOException {
         Optional<Account> optionalAccount = accountRepository.findByUsername(account.getUsername());
-        System.out.println(account.getUsername());
+        //System.out.println(account.getUsername());
         if (optionalAccount.isPresent()) {
             Account acc = optionalAccount.get();
             byte[] salt = new String("12345678").getBytes();
@@ -71,7 +71,6 @@ public class AccountController {
            // String encryptedPassword = encrypt(password, key);
             String decryptedPassword = decrypt(acc.getPassword(), key);
             if (password.equals(decryptedPassword)) {
-                System.out.println(decryptedPassword);
                 return new ResponseEntity<>(acc, HttpStatus.ACCEPTED);
             } else {
                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

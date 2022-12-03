@@ -39,7 +39,7 @@ public class ServiceController {
                 serviceList
              ) {
             list.add(ser.getService_title());
-            System.out.println(ser.getService_title());
+           // System.out.println(ser.getService_title());
         }
         return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
     }
