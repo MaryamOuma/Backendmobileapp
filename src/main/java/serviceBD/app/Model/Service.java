@@ -15,9 +15,9 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(name = "service")
 public class Service {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "service_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int service_id;
 
     @Column(name = "service_title")
     private String service_title;

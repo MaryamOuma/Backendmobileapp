@@ -32,8 +32,8 @@ public class Person {
     @Column(name = "tel")
     private String tel;
 
-    @Column(name = "image")
-    private String image;
+    @Column(name = "imageP")
+    private String imageP;
 
     @Column(name = "type_profil")
     private String typeProfil;
