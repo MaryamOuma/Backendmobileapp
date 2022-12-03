@@ -18,9 +18,6 @@ public class Service {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
-    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY)
-    private Set<Person> personnes;
 
     @Column(name = "service_title")
     private String service_title;
