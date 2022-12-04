@@ -1,11 +1,15 @@
 package serviceBD.app.Model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Data
 @Entity
 @DynamicUpdate
@@ -41,7 +45,7 @@ public class Person {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false,cascade=CascadeType.ALL)
     @JoinColumn(name = "service_id", nullable = false)
     private Service service;
 }
