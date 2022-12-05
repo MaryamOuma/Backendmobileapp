@@ -135,7 +135,7 @@ public class Person {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false,cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false,cascade=CascadeType.DETACH)
     @JoinColumn(name = "service_id", nullable = false)
     private Service service;
 }

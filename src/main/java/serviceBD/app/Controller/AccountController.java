@@ -14,6 +14,7 @@ import serviceBD.app.Repository.PersonRepository;
 import serviceBD.app.Service.AccountService;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.security.auth.login.AccountNotFoundException;
 
 import static serviceBD.app.config.Encryption.*;
 
@@ -89,19 +90,26 @@ public class AccountController {
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
-    public String deleteperson(@PathVariable (value = "id")  Long id ) {
+    public void deleteperson(@PathVariable (value = "id")  Long id ) throws AccountNotFoundException {
         
         if(!accountRepository.existsById(id)){
-        	   return  "Account with id "+id+" does not exists.";
+        	throw new AccountNotFoundException("id: "+ id);
+        	
         }
         else {
-        	
+
+        	long person_id =accountRepository.findPerson_id(id);
         	accountRepository.deleteById(id);
-        	//personRepository.deleteById(id);
+     
+        
+        	personRepository.deleteById(person_id);
         
         	
-        ;
-        return  "Account with id "+id+" has been deleted success.";
+        
+        	
+       
     }
+		
+		
     }
 }
