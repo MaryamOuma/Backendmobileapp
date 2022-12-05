@@ -103,6 +103,11 @@ public class PersonController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
+    
+    @GetMapping("/checkLogin/{tel}")
+    public boolean checkLogin(@PathVariable(value = "tel") String login) {
+        return personService.loginExists(login);
+    }
 
 
 }
