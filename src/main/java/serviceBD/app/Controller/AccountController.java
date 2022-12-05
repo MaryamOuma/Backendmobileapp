@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import serviceBD.app.Model.Account;
+import serviceBD.app.Model.Person;
 import serviceBD.app.Repository.AccountRepository;
+import serviceBD.app.Repository.PersonRepository;
 import serviceBD.app.Service.AccountService;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -32,6 +34,8 @@ public class AccountController {
 
     @Autowired
     AccountRepository accountRepository;
+    @Autowired
+    PersonRepository personRepository;
 
     @GetMapping("/list")
     public ResponseEntity<List<Account>> getAcc() throws GeneralSecurityException, UnsupportedEncodingException {
@@ -78,5 +82,26 @@ public class AccountController {
         }else {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Account> getEmployee(@PathVariable(value = "id") Long id) {
+        Account a =  accountService.getUserById(id);
+        return new ResponseEntity<>(a, HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    public String deleteperson(@PathVariable (value = "id")  Long id ) {
+        
+        if(!accountRepository.existsById(id)){
+        	   return  "Account with id "+id+" does not exists.";
+        }
+        else {
+        	
+        	accountRepository.deleteById(id);
+        	//personRepository.deleteById(id);
+        
+        	
+        ;
+        return  "Account with id "+id+" has been deleted success.";
+    }
     }
 }
