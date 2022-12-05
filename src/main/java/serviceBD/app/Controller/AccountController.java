@@ -43,7 +43,7 @@ public class AccountController {
         SecretKeySpec key = createSecretKey(password.toCharArray(), salt, iterationCount, keyLength);
         String originalPassword = password;
         String encryptedPassword = encrypt(originalPassword, key);
-       System.out.println(encryptedPassword);
+       //System.out.println(encryptedPassword);
         return new ResponseEntity<>(accounts, HttpStatus.ACCEPTED);
     }
    // @PostMapping("/save")

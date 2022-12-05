@@ -33,7 +33,7 @@ public class PersonService {
             a = personne.get();
 
         } else {
-            throw new RuntimeException("Article doesn't exist for id: " + id);
+            throw new RuntimeException("Person doesn't exist for id: " + id);
         }
         return a;
     }
