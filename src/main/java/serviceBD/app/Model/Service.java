@@ -11,7 +11,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Data
 @Entity
 @DynamicUpdate
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Table(name = "service")
 public class Service {
     @Id
@@ -21,7 +21,7 @@ public class Service {
 
     @Column(name = "service_title")
     private String service_title;
-    
-    @Column(name="image")
+
+    @Column(name = "image")
     private String image;
 }
