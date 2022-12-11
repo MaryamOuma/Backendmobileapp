@@ -28,7 +28,14 @@ public class ServiceController {
 
     @GetMapping("/list")
     public List<Service> listServices() throws GeneralSecurityException {
-        return serviceService.getServices();
+        List<Service> serviceList = new ArrayList<>();
+        for (Service s:
+                serviceService.getServices() ) {
+            if(!s.getService_title().equals("Client")){
+                serviceList.add(s);
+            }
+        }
+        return serviceList;
     }
     
     @GetMapping("/listString")
@@ -38,7 +45,9 @@ public class ServiceController {
         for (Service ser:
                 serviceList
              ) {
-            list.add(ser.getService_title());
+            if(!ser.getService_title().equals("Client")) {
+                list.add(ser.getService_title());
+            }
            // System.out.println(ser.getService_title());
         }
         return new ResponseEntity<>(list, HttpStatus.ACCEPTED);

@@ -47,5 +47,13 @@ public class PersonService {
          }
      }
 
+    public boolean loginExists(String login) {
+    		List<String> logins = personRepository.findAllLogins();
+    		return logins.contains(login);
+    }
+	
+
+
+
     
 }

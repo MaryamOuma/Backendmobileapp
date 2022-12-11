@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import serviceBD.app.Model.Account;
+import serviceBD.app.Model.Person;
 import serviceBD.app.Repository.AccountRepository;
 
 import java.util.List;
@@ -30,6 +31,17 @@ public class AccountService {
     public List<Account> getAccounts(){
         return  accountRepository.findAll();
     }
+	public Account getUserById(Long id) {
+		  Optional<Account> account = accountRepository.findById(id);
+	        Account a = null;
+	        if (account.isPresent()) {
+	            a = account.get();
+
+	        } else {
+	            throw new RuntimeException("Article doesn't exist for id: " + id);
+	        }
+	        return a;
+	}
 
 
 }
