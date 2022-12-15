@@ -93,7 +93,7 @@ public class PersonController {
 
     @GetMapping("/getFemmeMenage")
     public List<Person> listFemmeMenage(@Param("type") String type) {
-        return personService.getEmployeeByCategory("Employé", "Femme de ménage");
+        return personService.getEmployeeByCategory("Employee", "Femme de ménage");
     }
 
     @GetMapping("/{id}")
@@ -104,18 +104,8 @@ public class PersonController {
 
     @PostMapping("/save")
     @ResponseBody
-    public ResponseEntity<Account> saveAcc(@RequestBody Account account, @RequestParam("imageP") MultipartFile file)
+    public ResponseEntity<Account> saveAcc(@RequestBody Account account)
             throws GeneralSecurityException, UnsupportedEncodingException {
-            
-        StringBuilder fileNames = new StringBuilder();
-        String filename = account.getId() + file.getOriginalFilename().substring(file.getOriginalFilename().length() - 4);
-        Path fileNameAndPath =Paths.get(uploadDirectory,filename);
-        try {
-            Files.write(fileNameAndPath, file.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        account.setPerPhoto(filename);
         if (personService.savePerson(account.getPerson())) {
             return new ResponseEntity<>(accountController.saveAcc(account), HttpStatus.CREATED);
         } else {
