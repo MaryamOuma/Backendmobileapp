@@ -94,20 +94,11 @@ public class AccountController {
         
         if(!accountRepository.existsById(id)){
         	throw new AccountNotFoundException("id: "+ id);
-        	
         }
         else {
-
         	long person_id =accountRepository.findPerson_id(id);
-        	accountRepository.deleteById(id);
-     
-        
-        	personRepository.deleteById(person_id);
-        
-        	
-        
-        	
-       
+        	accountRepository.deleteById(id);  
+        	personRepository.deleteById(person_id);      
     }
 		
 		

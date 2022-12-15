@@ -1,7 +1,10 @@
 package serviceBD.app.Controller;
 
-
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +19,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import serviceBD.app.Service.PersonService;
 import serviceBD.app.Model.Account;
 import serviceBD.app.Model.Person;
@@ -33,59 +39,61 @@ public class PersonController {
     private PersonService personService;
     @Autowired
     private PersonRepository personRepository;
-    
+
     @Autowired
     private AccountController accountController;
 
+    public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/imagedata";
+
     public PersonService getPersonService() {
-		return personService;
-	}
+        return personService;
+    }
 
-	public void setPersonService(PersonService personService) {
-		this.personService = personService;
-	}
+    public void setPersonService(PersonService personService) {
+        this.personService = personService;
+    }
 
-	public AccountController getAccountController() {
-		return accountController;
-	}
+    public AccountController getAccountController() {
+        return accountController;
+    }
 
-	public void setAccountController(AccountController accountController) {
-		this.accountController = accountController;
-	}
+    public void setAccountController(AccountController accountController) {
+        this.accountController = accountController;
+    }
 
-	@GetMapping("/getAll")
+    @GetMapping("/getAll")
     public List<Person> list() {
         return personService.getAllEmployees();
     }
 
     @GetMapping("/getPlombier")
     public List<Person> listPlombier(@Param("type") String type, @Param("category") String category) {
-        return personService.getEmployeeByCategory("Employee", "Plomberie");
+        return personService.getEmployeeByCategory("Employé", "Plomberie");
     }
 
     @GetMapping("/getPeinture")
     public List<Person> listPeinture(@Param("type") String type) {
-        return personService.getEmployeeByCategory("Employee", "Peinture");
+        return personService.getEmployeeByCategory("Employé", "Peinture");
     }
 
     @GetMapping("/getElectricite")
     public List<Person> listElectricite(@Param("type") String type) {
-        return personService.getEmployeeByCategory("Employee", "Electricité");
+        return personService.getEmployeeByCategory("Employé", "Electricité");
     }
 
     @GetMapping("/getClimatisation")
     public List<Person> listClimatisation(@Param("type") String type) {
-        return personService.getEmployeeByCategory("Employee", "Climatisation");
+        return personService.getEmployeeByCategory("Employé", "Climatisation");
     }
 
     @GetMapping("/getBricolage")
     public List<Person> listBricolage(@Param("type") String type) {
-        return personService.getEmployeeByCategory("Employee", "Bricolage");
+        return personService.getEmployeeByCategory("Employé", "Bricolage");
     }
 
     @GetMapping("/getFemmeMenage")
     public List<Person> listFemmeMenage(@Param("type") String type) {
-        return personService.getEmployeeByCategory("Employee", "Femme de ménage");
+        return personService.getEmployeeByCategory("Employé", "Femme de ménage");
     }
 
     @GetMapping("/{id}")
@@ -93,21 +101,32 @@ public class PersonController {
         Person a = personService.getUserById(id);
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
-   
+
     @PostMapping("/save")
     @ResponseBody
-    public ResponseEntity<Account> saveAcc(@RequestBody Account account) throws GeneralSecurityException, UnsupportedEncodingException {
-        if(personService.savePerson(account.getPerson())) {
+    public ResponseEntity<Account> saveAcc(@RequestBody Account account, @RequestParam("imageP") MultipartFile file)
+            throws GeneralSecurityException, UnsupportedEncodingException {
+            
+        StringBuilder fileNames = new StringBuilder();
+        String filename = account.getId() + file.getOriginalFilename().substring(file.getOriginalFilename().length() - 4);
+        Path fileNameAndPath =Paths.get(uploadDirectory,filename);
+        try {
+            Files.write(fileNameAndPath, file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        account.setPerPhoto(filename);
+        if (personService.savePerson(account.getPerson())) {
             return new ResponseEntity<>(accountController.saveAcc(account), HttpStatus.CREATED);
-        }else{
+        } else {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
+        
     }
-    
+
     @GetMapping("/checkLogin/{tel}")
     public boolean checkLogin(@PathVariable(value = "tel") String login) {
         return personService.loginExists(login);
     }
-
 
 }

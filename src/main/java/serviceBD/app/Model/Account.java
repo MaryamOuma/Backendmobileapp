@@ -19,6 +19,8 @@ public class Account {
     @Column(name = "username")
     private String username;
 
+	private String PerPhoto;
+
     public int getId() {
 		return id;
 	}
@@ -53,6 +55,16 @@ public class Account {
 
 	@Column(name = "password")
     private String password;
+
+
+	public String getPerPhoto() {
+		return this.PerPhoto;
+	}
+
+	public void setPerPhoto(String PerPhoto) {
+		this.PerPhoto = PerPhoto;
+	}
+
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "person_id", nullable = false)
