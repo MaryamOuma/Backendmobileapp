@@ -8,6 +8,9 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
