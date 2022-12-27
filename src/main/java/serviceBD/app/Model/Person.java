@@ -8,6 +8,8 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.Collection;
+
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
@@ -19,14 +21,14 @@ public class Person {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int person_id;
 
     public int getId() {
-		return id;
+		return person_id;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.person_id = id;
 	}
 
 	public String getCin() {
@@ -139,4 +141,5 @@ public class Person {
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.DETACH )
     @JoinColumn(name = "service_id")
     private Service service;
+
 }
