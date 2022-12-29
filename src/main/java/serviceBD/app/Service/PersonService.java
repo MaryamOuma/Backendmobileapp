@@ -22,9 +22,6 @@ public class PersonService {
     }
 
     public List<Person> getEmployeeByCategory(String type, String category) {
-        // if (category != null) {
-        // return categoryRepository.findByCategory(category);
-        // }
         return personRepository.findByCategoryAndType(type, category);
     }
 
@@ -35,7 +32,7 @@ public class PersonService {
             a = personne.get();
 
         } else {
-            throw new RuntimeException("Article doesn't exist for id: " + id);
+            throw new RuntimeException("Person doesn't exist for id: " + id);
         }
         return a;
     }
