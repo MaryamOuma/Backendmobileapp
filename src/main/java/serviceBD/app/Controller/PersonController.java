@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import serviceBD.app.Service.PersonService;
 import serviceBD.app.Model.Account;
 import serviceBD.app.Model.Person;
+import serviceBD.app.Model.Rating;
 import serviceBD.app.Repository.PersonRepository;
 
 @RestController
@@ -111,7 +112,20 @@ public class PersonController {
         return personService.loginExists(login);
     }
     
+    @PostMapping("/{id}/ratings")
+    public Rating createRating(@RequestBody Rating rating, @PathVariable(value = "id") Long id) {
+        return personService.createRating(rating, id);
+    }
+
+    @GetMapping("/{id}/ratings")
+    public float sumRatings(@PathVariable(value = "id") int id) {
+        return personService.getAllRatingById(id);
+    }
    
+    @GetMapping("/{id}/sumRatingByEmp")
+    public int sumRatingsByImp(@PathVariable(value = "id") int id) {
+        return personService.getSumColumnsRats(id);
+    }
 
 
 }

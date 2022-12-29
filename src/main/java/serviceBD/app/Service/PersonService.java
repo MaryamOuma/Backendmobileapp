@@ -7,15 +7,21 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import serviceBD.app.Repository.PersonRepository;
+import serviceBD.app.Repository.RatinRepository;
 import serviceBD.app.Model.Person;
+import serviceBD.app.Model.Rating;
 
 @Service
 public class PersonService {
 
     @Autowired
     PersonRepository personRepository;
+
+    @Autowired
+    RatinRepository ratingRepository;
 
     public List<Person> getAllEmployees() {
         return personRepository.findAllEmp();
@@ -49,5 +55,35 @@ public class PersonService {
     public boolean loginExists(String login) {
     		List<String> logins = personRepository.findAllLogins();
     		return logins.contains(login);
+    }
+
+    public Rating createRating(Rating rating, Long id) {
+        return personRepository.findById(id).map(personne -> {
+            rating.setPerson(personne);
+            return ratingRepository.save(rating);
+        }).orElseThrow();
+    }
+
+    public float getAllRatingById(@PathVariable(value = "id") int id) {
+        if (!ratingRepository.existsById(id)) {
+            return 0;
+        }
+
+        else if (ratingRepository.existsById(id)) {
+            return ratingRepository.sumRatingById(id);
+        }
+        return ratingRepository.sumRatingById(id);
+    }
+
+    public int getSumColumnsRats(@PathVariable(value = "id") int id) {
+        if (!ratingRepository.existsById(id)) {
+            return 0;
+        }
+
+        else if (ratingRepository.existsById(id)) {
+            return ratingRepository.sumColumnsRating(id);
+        }
+        return ratingRepository.sumColumnsRating(id);
+
     }
 }

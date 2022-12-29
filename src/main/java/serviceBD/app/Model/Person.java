@@ -1,30 +1,34 @@
 package serviceBD.app.Model;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
 @Entity
 @DynamicUpdate
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Table(name = "person")
 public class Person {
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+	@Id
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-    public int getId() {
+	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL)    
+	@JsonIgnore
+    private List<Rating> ratings;
+
+	public int getId() {
 		return id;
 	}
 
@@ -105,41 +109,30 @@ public class Person {
 	}
 
 	@Column(name = "cin")
-    private String cin;
+	private String cin;
 
-    @Column(name = "first_name")
-    private String firstName;
+	@Column(name = "first_name")
+	private String firstName;
 
-    @Column(name = "last_name")
-    private String lastName;
+	@Column(name = "last_name")
+	private String lastName;
 
-    @Column(name = "city")
-    private String city;
+	@Column(name = "city")
+	private String city;
 
-    @Column(name = "tel")
-    private String tel;
+	@Column(name = "tel")
+	private String tel;
 
-    @Column(name = "imageP")
-    private String imageP;
-    @Column(name = "image")
-    private String image;
-
-    public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
+	@Column(name = "imageP")
+	private String imageP;
 
 	@Column(name = "type_profil")
-    private String typeProfil;
-    
-    @Column(name = "description")
-    private String description;
+	private String typeProfil;
 
+	@Column(name = "description")
+	private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.DETACH )
-    @JoinColumn(name = "service_id")
-    private Service service;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.DETACH)
+	@JoinColumn(name = "service_id", nullable = false)
+	private Service service;
 }
