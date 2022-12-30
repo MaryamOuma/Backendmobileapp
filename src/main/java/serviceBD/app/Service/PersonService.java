@@ -30,7 +30,10 @@ public class PersonService {
     public List<Person> getEmployeeByCategory(String type, String category) {
         return personRepository.findByCategoryAndType(type, category);
     }
+    public List<Person> getEmployeeByCategory(String category) {
+        return personRepository.findByCategoryAndType(category);
 
+    }
     public Person getUserById(Long id) {
         Optional<Person> personne = personRepository.findById(id);
         Person a = null;

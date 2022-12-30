@@ -63,7 +63,6 @@ public class PersonController {
 
     @GetMapping("/getPlombier")
     public List<Person> listPlombier(@Param("type") String type, @Param("category") String category) {
-
         return personService.getEmployeeByCategory("Employé", "Plomberie");
     }
 
@@ -81,8 +80,11 @@ public class PersonController {
 
     @GetMapping("/getClimatisation")
     public List<Person> listClimatisation(@Param("type") String type) {
-
         return personService.getEmployeeByCategory("Employé", "Climatisation");
+    }
+    @GetMapping("/getByCateg/{cat}")
+    public List<Person> getByCateg(@PathVariable("cat") String category) {
+        return personService.getEmployeeByCategory(category);
     }
 
     @GetMapping("/getBricolage")
