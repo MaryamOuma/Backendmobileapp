@@ -92,7 +92,7 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Person> getEmployee(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Person> getEmployee(@PathVariable(value = "id") int id) {
         Person a = personService.getUserById(id);
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
@@ -113,7 +113,7 @@ public class PersonController {
     }
     
     @PostMapping("/{id}/ratings")
-    public Rating createRating(@RequestBody Rating rating, @PathVariable(value = "id") Long id) {
+    public Rating createRating(@RequestBody Rating rating, @PathVariable(value = "id") int id) {
         return personService.createRating(rating, id);
     }
 
@@ -121,11 +121,12 @@ public class PersonController {
     public float sumRatings(@PathVariable(value = "id") int id) {
         return personService.getAllRatingById(id);
     }
-   
+
     @GetMapping("/{id}/sumRatingByEmp")
     public int sumRatingsByImp(@PathVariable(value = "id") int id) {
         return personService.getSumColumnsRats(id);
     }
+   
 
 
 }
