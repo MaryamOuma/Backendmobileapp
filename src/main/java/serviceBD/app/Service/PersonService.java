@@ -69,11 +69,10 @@ public class PersonService {
         if (!ratingRepository.existsById(id)) {
             return 0;
         }
-
         else if (ratingRepository.existsById(id)) {
             return ratingRepository.sumRatingById(id);
         }
-        return ratingRepository.sumRatingById(id);
+        return 0;
     }
 
     public int getSumColumnsRats(@PathVariable(value = "id") int id) {
