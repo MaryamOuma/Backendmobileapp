@@ -27,9 +27,7 @@ public class PersonService {
         return personRepository.findAllEmp();
     }
 
-    public List<Person> getEmployeeByCategory(String type, String category) {
-        return personRepository.findByCategoryAndType(type, category);
-    }
+
     public List<Person> getEmployeeByCategory(String category) {
         return personRepository.findByCategoryAndType(category);
 

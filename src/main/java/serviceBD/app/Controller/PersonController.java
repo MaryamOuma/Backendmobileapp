@@ -61,42 +61,9 @@ public class PersonController {
         return personService.getAllEmployees();
     }
 
-    @GetMapping("/getPlombier")
-    public List<Person> listPlombier(@Param("type") String type, @Param("category") String category) {
-        return personService.getEmployeeByCategory("Employé", "Plomberie");
-    }
-
-    @GetMapping("/getPeinture")
-    public List<Person> listPeinture(@Param("type") String type) {
-
-        return personService.getEmployeeByCategory("Employé", "Peinture");
-    }
-
-    @GetMapping("/getElectricite")
-    public List<Person> listElectricite(@Param("type") String type) {
-
-        return personService.getEmployeeByCategory("Employé", "Electricité");
-    }
-
-    @GetMapping("/getClimatisation")
-    public List<Person> listClimatisation(@Param("type") String type) {
-        return personService.getEmployeeByCategory("Employé", "Climatisation");
-    }
     @GetMapping("/getByCateg/{cat}")
     public List<Person> getByCateg(@PathVariable("cat") String category) {
         return personService.getEmployeeByCategory(category);
-    }
-
-    @GetMapping("/getBricolage")
-    public List<Person> listBricolage(@Param("type") String type) {
-
-        return personService.getEmployeeByCategory("Employé", "Bricolage");
-    }
-
-    @GetMapping("/getFemmeMenage")
-    public List<Person> listFemmeMenage(@Param("type") String type) {
-
-        return personService.getEmployeeByCategory("Employé", "Femme de ménage");
     }
 
     @GetMapping("/{id}")
