@@ -9,13 +9,13 @@ import serviceBD.app.Model.Person;
 import java.util.Optional;
 
 @Repository
-public interface AccountRepository extends JpaRepository<Account, Long> {
+public interface AccountRepository extends JpaRepository<Account, Integer> {
     @Query(value = "SELECT * FROM Account a WHERE a.username = :username", nativeQuery = true)
     Optional<Account> findByUsername(String username);
     
     
     @Query(value = "SELECT  person_id  FROM Account a WHERE a.id = :id", nativeQuery = true)
-     long  findPerson_id(Long id);
+     int  findPerson_id(int id);
  
 	
 
