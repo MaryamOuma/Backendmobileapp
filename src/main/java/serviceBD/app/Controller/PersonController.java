@@ -63,32 +63,32 @@ public class PersonController {
 
     @GetMapping("/getPlombier")
     public List<Person> listPlombier(@Param("type") String type, @Param("category") String category) {
-        return personService.getEmployeeByCategory("Employe", "Plomberie");
+        return personService.getEmployeeByCategory("employee", "Plomberie");
     }
 
     @GetMapping("/getPeinture")
     public List<Person> listPeinture(@Param("type") String type) {
-        return personService.getEmployeeByCategory("Employe", "Peinture");
+        return personService.getEmployeeByCategory("employee", "Peinture");
     }
 
     @GetMapping("/getElectricite")
     public List<Person> listElectricite(@Param("type") String type) {
-        return personService.getEmployeeByCategory("Employe", "Electricité");
+        return personService.getEmployeeByCategory("employee", "Electricité");
     }
 
     @GetMapping("/getClimatisation")
     public List<Person> listClimatisation(@Param("type") String type) {
-        return personService.getEmployeeByCategory("Employe", "Climatisation");
+        return personService.getEmployeeByCategory("employee", "Climatisation");
     }
 
     @GetMapping("/getBricolage")
     public List<Person> listBricolage(@Param("type") String type) {
-        return personService.getEmployeeByCategory("Employe", "Bricolage");
+        return personService.getEmployeeByCategory("employee", "Bricolage");
     }
 
     @GetMapping("/getFemmeMenage")
     public List<Person> listFemmeMenage(@Param("type") String type) {
-        return personService.getEmployeeByCategory("Employe", "Femme de ménage");
+        return personService.getEmployeeByCategory("employee", "Femme de ménage");
     }
 
     @GetMapping("/{id}")
