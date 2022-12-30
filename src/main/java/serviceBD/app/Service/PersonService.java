@@ -34,7 +34,7 @@ public class PersonService {
         return personRepository.findByCategoryAndType(type, category);
     }
 
-    public Person getUserById(Long id) {
+    public Person getUserById(int id) {
         Optional<Person> personne = personRepository.findById(id);
         Person a = null;
         if (personne.isPresent()) {
@@ -60,7 +60,7 @@ public class PersonService {
     		return logins.contains(login);
     }
 
-    public Rating createRating(Rating rating, Long id) {
+    public Rating createRating(Rating rating, int id) {
         return personRepository.findById(id).map(personne -> {
             rating.setPerson(personne);
             return ratingRepository.save(rating);
@@ -68,22 +68,23 @@ public class PersonService {
     }
 
     public float getAllRatingById(@PathVariable(value = "id") int id) {
-        if (!ratingRepository.existsById(id)) {
+        if(!ratingRepository.existsById(id)) {
             return 0;
         }
 
-        else if (ratingRepository.existsById(id)) {
+        else if(ratingRepository.existsById(id)) {
             return ratingRepository.sumRatingById(id);
         }
         return ratingRepository.sumRatingById(id);
     }
 
-    public int getSumColumnsRats(@PathVariable(value = "id") int id) {
-        if (!ratingRepository.existsById(id)) {
+    public int getSumColumnsRats(@PathVariable(value = "id") int id) 
+    {
+        if(!ratingRepository.existsById(id)) {
             return 0;
         }
 
-        else if (ratingRepository.existsById(id)) {
+        else if(ratingRepository.existsById(id)) {
             return ratingRepository.sumColumnsRating(id);
         }
         return ratingRepository.sumColumnsRating(id);
