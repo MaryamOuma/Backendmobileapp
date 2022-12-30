@@ -118,10 +118,14 @@ public class PersonController {
     }
 
     @GetMapping("/{id}/ratings")
-    public float sumRatings(@PathVariable(value = "id") Long id) {
+    public float sumRatings(@PathVariable(value = "id") int id) {
         return personService.getAllRatingById(id);
     }
    
+    @GetMapping("/{id}/sumRatingByEmp")
+    public int sumRatingsByImp(@PathVariable(value = "id") int id) {
+        return personService.getSumColumnsRats(id);
+    }
 
 
 }

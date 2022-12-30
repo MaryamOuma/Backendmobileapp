@@ -67,7 +67,26 @@ public class PersonService {
         }).orElseThrow();
     }
 
-    public float getAllRatingById(@PathVariable(value = "id") Long id) {
+    public float getAllRatingById(@PathVariable(value = "id") int id) {
+        if (!ratingRepository.existsById(id)) {
+            return 0;
+        }
+
+        else if (ratingRepository.existsById(id)) {
+            return ratingRepository.sumRatingById(id);
+        }
         return ratingRepository.sumRatingById(id);
+    }
+
+    public int getSumColumnsRats(@PathVariable(value = "id") int id) {
+        if (!ratingRepository.existsById(id)) {
+            return 0;
+        }
+
+        else if (ratingRepository.existsById(id)) {
+            return ratingRepository.sumColumnsRating(id);
+        }
+        return ratingRepository.sumColumnsRating(id);
+
     }
 }
