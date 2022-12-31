@@ -11,12 +11,4 @@ import java.util.List;
 public class ListFavService {
     @Autowired
     ListFavRepository listFavRepository;
-
-    public List<ListFavoris> getAll(){
-        return listFavRepository.findAll();
-    }
-
-    public ListFavoris saveListFavRepository(ListFavoris listFav) {
-        return  listFavRepository.save(listFav);
-    }
 }
