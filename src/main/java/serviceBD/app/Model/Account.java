@@ -18,8 +18,20 @@ public class Account {
 
     @Column(name = "username")
     private String username;
+	@Column(name = "password")
+    private String password;
 
-    public int getId() {
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "person_id", nullable = false)
+    private Person person;
+
+	public Account(String username, String password, Person person) {
+		this.username = username;
+		this.password = password;
+		this.person = person;
+	}
+
+	public int getId() {
 		return id;
 	}
 
@@ -51,11 +63,5 @@ public class Account {
 		this.person = person;
 	}
 
-	@Column(name = "password")
-    private String password;
-
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "person_id", nullable = false)
-    private Person person;
 
 }

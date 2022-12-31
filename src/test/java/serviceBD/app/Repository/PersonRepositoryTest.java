@@ -112,7 +112,7 @@ class PersonRepositoryTest {
     }
 
     @BeforeEach
-    void set(){
+    void setUp(){
         serviceRepository.save(service);
         serviceRepository.save(service1);
     }

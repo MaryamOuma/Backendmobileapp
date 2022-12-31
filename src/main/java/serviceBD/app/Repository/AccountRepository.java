@@ -16,7 +16,5 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     
     @Query(value = "SELECT  person_id  FROM Account a WHERE a.id = :id", nativeQuery = true)
      long  findPerson_id(Long id);
- 
-	
 
 }
