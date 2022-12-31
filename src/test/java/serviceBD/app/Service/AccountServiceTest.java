@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import serviceBD.app.Repository.AccountRepository;
 import serviceBD.app.Repository.PersonRepository;
 import serviceBD.app.Repository.ServiceRepository;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 
@@ -47,7 +49,12 @@ class AccountServiceTest {
     @Test
     void saveAccount() {
         underTest.saveAccount(account);
-        verify(accountRepository).save(account);
+        ArgumentCaptor<Account> accountArgumentCaptor =
+                ArgumentCaptor.forClass(Account.class);
+        verify(accountRepository)
+                .save(accountArgumentCaptor.capture());
+        Account capturedAccount = accountArgumentCaptor.getValue();
+        assertThat(capturedAccount).isEqualTo(account);
     }
 
 
