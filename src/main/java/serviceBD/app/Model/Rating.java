@@ -31,4 +31,13 @@ public class Rating implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id")
     private Person person;
+
+    public Rating(String label, Person person) {
+        this.label = label;
+        this.person = person;
+    }
+
+    public Rating() {
+
+    }
 }

@@ -19,7 +19,6 @@ import java.util.Optional;
 public class AccountService {
     @Autowired
     AccountRepository accountRepository;
- //   private final JwtEncoder encoder;
 
     public Account saveAccount(Account account){
 
@@ -38,7 +37,7 @@ public class AccountService {
 	            a = account.get();
 
 	        } else {
-	            throw new RuntimeException("Article doesn't exist for id: " + id);
+	            throw new RuntimeException("Account doesn't exist for id: " + id);
 	        }
 	        return a;
 	}
