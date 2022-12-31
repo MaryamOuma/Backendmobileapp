@@ -28,6 +28,44 @@ public class Person {
 	@JsonIgnore
     private List<Rating> ratings;
 
+	@Column(name = "cin")
+	private String cin;
+
+	@Column(name = "first_name")
+	private String firstName;
+
+	@Column(name = "last_name")
+	private String lastName;
+
+	@Column(name = "city")
+	private String city;
+
+	@Column(name = "tel")
+	private String tel;
+
+	@Column(name = "imageP")
+	private String imageP;
+
+	@Column(name = "type_profil")
+	private String typeProfil;
+
+	@Column(name = "description")
+	private String description;
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.DETACH)
+	@JoinColumn(name = "service_id", nullable = false)
+	private Service service;
+
+	public Person(String cin, String firstName, String lastName, String city, String tel, String typeProfil, Service service) {
+		this.cin = cin;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.city = city;
+		this.tel = tel;
+		this.typeProfil = typeProfil;
+		this.service = service;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -107,32 +145,4 @@ public class Person {
 	public void setService(Service service) {
 		this.service = service;
 	}
-
-	@Column(name = "cin")
-	private String cin;
-
-	@Column(name = "first_name")
-	private String firstName;
-
-	@Column(name = "last_name")
-	private String lastName;
-
-	@Column(name = "city")
-	private String city;
-
-	@Column(name = "tel")
-	private String tel;
-
-	@Column(name = "imageP")
-	private String imageP;
-
-	@Column(name = "type_profil")
-	private String typeProfil;
-
-	@Column(name = "description")
-	private String description;
-
-	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.DETACH)
-	@JoinColumn(name = "service_id", nullable = false)
-	private Service service;
 }

@@ -25,6 +25,14 @@ public class Service {
     @Column(name="image")
     private String image;
 
+	public Service(String service_title) {
+		this.service_title=service_title;
+	}
+
+	public Service() {
+
+	}
+
 	public int getService_id() {
 		return service_id;
 	}

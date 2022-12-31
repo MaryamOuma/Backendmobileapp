@@ -9,9 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PersonRepository extends JpaRepository<Person, Long> {
+public interface PersonRepository extends  JpaRepository<Person, Long> {
     @Query(nativeQuery = true, value = "SELECT p.id, p.cin, p.first_name, p.city, p.description, p.type_profil, p.imageP, p.last_name, p.tel, s.service_title, s.image, s.service_id from person as p JOIN service as s  ON s.service_id = p.service_id")
     List<Person> findAllEmp();
+
 
     @Query(nativeQuery = true, value = "SELECT p.id, p.cin, p.first_name, p.city, p.description, p.type_profil, p.imageP, p.last_name, p.tel, s.service_title, s.image, s.service_id from person as p JOIN service as s  ON s.service_id = p.service_id where p.type_profil like '%Employé%' AND s.service_title like %:service_title%")
     List<Person> findByCategoryAndType(String service_title);

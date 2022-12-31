@@ -22,7 +22,7 @@ public class PersonService {
     RatinRepository ratingRepository;
 
     public List<Person> getAllEmployees() {
-        return personRepository.findAllEmp();
+        return personRepository.findAll();
     }
 
 
