@@ -13,10 +13,11 @@ public class VilleService {
     @Autowired
 	 VilleRepository villeRepository;
 
-	public List<Ville> getAllCities() {
-		// TODO Auto-generated method stub
-		  return villeRepository.findAllcities();
+	public VilleService(VilleRepository villeRepository) {
+		this.villeRepository=villeRepository;
 	}
 
-	
+	public List<Ville> getAllCities() {
+		  return villeRepository.findAll();
+	}
 }

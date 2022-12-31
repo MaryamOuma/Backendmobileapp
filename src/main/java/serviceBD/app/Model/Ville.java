@@ -28,6 +28,11 @@ public class Ville {
 	    private int id;
 	  @Column(name = "nom_ville")
 	    private String nom_ville;
+
+	public Ville(String nom_ville) {
+		this.nom_ville = nom_ville;
+	}
+
 	public int getId() {
 		return id;
 	}
