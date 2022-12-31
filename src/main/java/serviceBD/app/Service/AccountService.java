@@ -20,26 +20,19 @@ public class AccountService {
     @Autowired
     AccountRepository accountRepository;
 
-    public Account saveAccount(Account account){
-
-        return  accountRepository.save(account);
+    public AccountService(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
     }
-    public Optional<Account> getAccount(String username){
-        return  accountRepository.findByUsername(username);
+
+    public Account saveAccount(Account account){
+        return  accountRepository.save(account);
     }
     public List<Account> getAccounts(){
         return  accountRepository.findAll();
     }
 	public Account getUserById(Long id) {
-		  Optional<Account> account = accountRepository.findById(id);
-	        Account a = null;
-	        if (account.isPresent()) {
-	            a = account.get();
-
-	        } else {
-	            throw new RuntimeException("Account doesn't exist for id: " + id);
-	        }
-	        return a;
+		  Account account = accountRepository.getReferenceById(id);
+          return account;
 	}
 
 
