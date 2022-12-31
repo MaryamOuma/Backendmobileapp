@@ -1,9 +1,7 @@
 package serviceBD.app.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +26,7 @@ public class PersonService {
     }
 
 
+
     public List<Person> getEmployeeByCategory(String category) {
         return personRepository.findByCategoryAndType(category);
 
@@ -43,6 +42,7 @@ public class PersonService {
         }
         return a;
     }
+
     
     public boolean savePerson(Person person){
         if(personRepository.save(person).equals(null)){

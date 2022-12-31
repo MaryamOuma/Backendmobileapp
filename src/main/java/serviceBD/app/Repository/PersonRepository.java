@@ -1,5 +1,7 @@
 package serviceBD.app.Repository;
 
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
 import serviceBD.app.Model.Person;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
