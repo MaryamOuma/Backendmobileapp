@@ -104,4 +104,10 @@ public class AccountController {
 		
 		
     }
+
+    @GetMapping("/profiltype/{username}")
+    public String getProfilType(@PathVariable(value="username") String username){
+
+        return accountService.getProfilType(username);
+    }
 }
