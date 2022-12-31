@@ -24,7 +24,6 @@ class AccountRepositoryTest {
     @Autowired
     private  AccountRepository accountRepository;
     Service service= new Service("Climatisation");
-    Service service1= new Service("Peinture");
 
     Person person= new Person("AE5889", "Salma", "saadi", "Salé","salma@gmail.com", "Employé", service);
     Account account= new Account("salma@gmail.com", "", person );
