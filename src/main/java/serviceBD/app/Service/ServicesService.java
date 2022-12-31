@@ -6,10 +6,15 @@ import serviceBD.app.Repository.ServiceRepository;
 
 import java.util.List;
 
+
 @Service
 public class ServicesService {
     @Autowired
     ServiceRepository serviceRepository;
+
+    public ServicesService(ServiceRepository serviceRepository) {
+        this.serviceRepository = serviceRepository;
+    }
 
     public List<serviceBD.app.Model.Service> getServices(){
         return serviceRepository.findAll();
