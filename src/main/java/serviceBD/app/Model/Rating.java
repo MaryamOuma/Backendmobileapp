@@ -26,13 +26,13 @@ public class Rating implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_rating;
     
-    private String label; 
+    private int label;
 
     @ManyToOne
     @JoinColumn(name = "id")
     private Person person;
 
-    public Rating(String label, Person person) {
+    public Rating(int label, Person person) {
         this.label = label;
         this.person = person;
     }

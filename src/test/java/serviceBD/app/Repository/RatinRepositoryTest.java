@@ -25,7 +25,7 @@ class RatinRepositoryTest {
     RatinRepository ratinRepository;
 
     Person person= new Person("AE5889", "Salma", "saadi", "Salé","salma@gmail.com", "Employé", service);
-    Rating rating= new Rating("6", person);
+    Rating rating= new Rating(6, person);
 
 
 
@@ -36,7 +36,7 @@ class RatinRepositoryTest {
         personRepository.save(person);
     }
 
-   /* @Test
+    @Test
     void sumRatingById() {
         ratinRepository.save(rating);
         boolean exist= false;
@@ -46,7 +46,6 @@ class RatinRepositoryTest {
         }
         assertThat(exist).isTrue();
     }
-*/
     @Test
     void sumColumnsRating() {
         ratinRepository.save(rating);
@@ -57,6 +56,7 @@ class RatinRepositoryTest {
         }
         assertThat(exist).isTrue();
     }
+
     @Test
     void sumColumnsRatingNull() {
         boolean exist= false;
