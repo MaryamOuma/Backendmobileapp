@@ -38,5 +38,4 @@ public class Message {
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-
 }

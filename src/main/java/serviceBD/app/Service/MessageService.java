@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import serviceBD.app.Model.Message;
 import serviceBD.app.Repository.MessageRepository;
+import serviceBD.app.Repository.PersonRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -27,13 +28,16 @@ public class MessageService {
         }
         return true;
     }
+    
     public List<Message> getListMessage(int from,int to){
 
         return messageRepository.getListMessages(from, to);
     }
+    
     public List<Message> fetchAll(int myId){
-        List <Message> getAllMessages = messageRepository.getAllConversations(myId);
-        return getAllMessages;
+    	
+        List <Message> getAllConversations = messageRepository.getAllConversations(myId);
+        return getAllConversations;
 
     }
 

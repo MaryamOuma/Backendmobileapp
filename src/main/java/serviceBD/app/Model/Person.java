@@ -123,14 +123,6 @@ public class Person {
     @Column(name = "image")
     private String image;
 
-    public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
 	@Column(name = "type_profil")
     private String typeProfil;
     
