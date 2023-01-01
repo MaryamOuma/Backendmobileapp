@@ -33,6 +33,7 @@ class PersonServiceTest {
     private PersonService underTest;
 
 
+
     Service service= new Service("Climatisation");
     Person person= new Person("AE5889", "Salma", "saadi", "Salé","salma@gmail.com", "Employé", service);
 
@@ -44,7 +45,6 @@ class PersonServiceTest {
     void setUp() {
         underTest= new PersonService(personRepository);
         serviceRepository.save(service);
-
     }
 
     @Test
