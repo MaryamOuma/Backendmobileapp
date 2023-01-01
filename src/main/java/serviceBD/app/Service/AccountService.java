@@ -42,6 +42,10 @@ public class AccountService {
 	        }
 	        return a;
 	}
+    public String getProfilType(String username){
+        return accountRepository.findTypeProfil(username);
+
+    }
 
 
 }
