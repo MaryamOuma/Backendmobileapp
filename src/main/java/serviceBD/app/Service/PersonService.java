@@ -55,8 +55,25 @@ public class PersonService {
         return logins.contains(login);
     }
 
-    public int getAllRatingById(@PathVariable(value = "id") int id) {
+    // RATING AN EMPLOYEE
+    public Rating createRating(Rating rating, int id, int id_client) {
+        personRepository.findById(id_client).map(pers -> {
+            rating.setClient(pers);
+            return ratingRepository.save(rating);
+        }).orElseThrow();
 
+        personRepository.findById(id).map(personne -> {
+            rating.setPerson(personne);
+            return ratingRepository.save(rating);
+        }).orElseThrow();
+        return ratingRepository.save(rating);
+    }
+
+    public int getAllRatingById(int id, int id_client) {
+
+        if (!ratingRepository.existsById(id) && !ratingRepository.existsById(id_client)) {
+            return 0;
+        }
         return ratingRepository.sumRatingById(id);
     }
 
@@ -64,21 +81,15 @@ public class PersonService {
         if (!ratingRepository.existsById(id) && !ratingRepository.existsById(id_client)) {
             return 0;
         }
-
-        else if (!ratingRepository.existsById(id) && !ratingRepository.existsById(id_client)) {
-            return ratingRepository.sumColumnsRating(id);
-        }
         return ratingRepository.sumColumnsRating(id);
-
     }
 
-    public int getRatingByClient(int id_client, int id) {
+    public int getRatingByClient(@PathVariable(value = "id") int id, @PathVariable(value = "id_client") int id_client) {
 
         if (!ratingRepository.existsById(id) && !ratingRepository.existsById(id_client)) {
             return 0;
-        } else if (ratingRepository.existsById(id) && ratingRepository.existsById(id_client)) {
-            return ratingRepository.getRatingByClient(id_client, id);
         }
-        return ratingRepository.getRatingByClient(id_client, id);
+
+        return ratingRepository.getRatingByClient(id, id_client);
     }
 }
