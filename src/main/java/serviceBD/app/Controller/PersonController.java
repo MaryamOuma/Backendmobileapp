@@ -113,7 +113,7 @@ public class PersonController {
     }  
 
     @GetMapping("/{id_client}/RatingEmpByClient/{id}")
-    public int getRatingByClient(@PathVariable(value = "id") int id, @PathVariable(value = "id_client") int id_client) {
+    public long getRatingByClient(@PathVariable(value = "id") int id, @PathVariable(value = "id_client") int id_client) {
         return personService.getRatingByClient(id, id_client);
     }
 }

@@ -77,9 +77,8 @@ public class PersonService {
         return ratingRepository.sumColumnsRating(id);
     }
 
-    public int getRatingByClient(@PathVariable(value = "id") int id, @PathVariable(value = "id_client") int id_client) {
-
-        if (!ratingRepository.existsById(id) && !ratingRepository.existsById(id_client)) {
+    public long getRatingByClient(@PathVariable(value = "id") int id, @PathVariable(value = "id_client") int id_client) {
+        if (ratingRepository.getRatingByClient(id, id_client)==null) {
             return 0;
         }
         return ratingRepository.getRatingByClient(id, id_client);

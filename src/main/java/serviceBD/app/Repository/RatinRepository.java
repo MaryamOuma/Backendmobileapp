@@ -16,6 +16,6 @@ public interface RatinRepository extends JpaRepository<Rating, Integer> {
     int sumColumnsRating(int id);
 
     @Query(nativeQuery = true, value = "SELECT label from rating r where r.id_client = :id_client AND r.id=:id")
-    int getRatingByClient(int id, int id_client);
+    Long getRatingByClient(int id, int id_client);
 
 }
