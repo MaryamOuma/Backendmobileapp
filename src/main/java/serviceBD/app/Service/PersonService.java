@@ -31,23 +31,12 @@ public class PersonService {
     }
 
     public Person getUserById(int id) {
-        Optional<Person> personne = personRepository.findById(id);
-        Person a = null;
-        if (personne.isPresent()) {
-            a = personne.get();
-
-        } else {
-            throw new RuntimeException("Person doesn't exist for id: " + id);
-        }
-        return a;
+        Person person= personRepository.getReferenceById(id);
+        return person;
     }
 
-    public boolean savePerson(Person person) {
-        if (personRepository.save(person).equals(null)) {
-            return false;
-        } else {
-            return true;
-        }
+    public Person savePerson(Person person) {
+        return personRepository.save(person);
     }
 
     public boolean loginExists(String login) {
@@ -95,5 +84,9 @@ public class PersonService {
             return 0;
         }
         return ratingRepository.getRatingByClient(id, id_client);
+    }
+
+    public PersonService(PersonRepository personRepository) {
+        this.personRepository = personRepository;
     }
 }

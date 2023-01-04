@@ -10,10 +10,4 @@ import serviceBD.app.Model.Person;
 import serviceBD.app.Model.Ville;
 @Repository
 public interface VilleRepository extends  JpaRepository<Ville, Long> {
- 
-
-    @Query(nativeQuery = true, value = "SELECT * from Ville")
-	public List<Ville> findAllcities();
-	
-
 }

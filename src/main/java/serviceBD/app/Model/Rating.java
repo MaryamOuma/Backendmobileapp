@@ -69,6 +69,11 @@ public class Rating implements Serializable {
     public void setClient(Person client) {
         this.client = client;
     }
+    public Rating(Person emp, Person client, int label) {
+        this.client=client;
+        this.person=emp;
+        this.label=label;
+    }
 
 
 }

@@ -25,6 +25,10 @@ public class Service {
     @Column(name="image")
     private String image;
 
+	public Service() {
+
+	}
+
 	public int getService_id() {
 		return service_id;
 	}
@@ -47,5 +51,9 @@ public class Service {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public Service(String service_title) {
+		this.service_title = service_title;
 	}
 }

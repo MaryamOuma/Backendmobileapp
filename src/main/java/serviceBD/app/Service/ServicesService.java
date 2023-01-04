@@ -13,6 +13,9 @@ public class ServicesService {
 
     public List<serviceBD.app.Model.Service> getServices(){
         return serviceRepository.findAll();
+    }
 
+    public ServicesService(ServiceRepository serviceRepository) {
+        this.serviceRepository = serviceRepository;
     }
 }

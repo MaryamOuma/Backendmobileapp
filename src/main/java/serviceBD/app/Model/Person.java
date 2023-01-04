@@ -135,4 +135,14 @@ public class Person {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.DETACH)
 	@JoinColumn(name = "service_id", nullable = false)
 	private Service service;
+
+	public Person(String cin, String firstName, String lastName, String city, String tel, String typeProfil, Service service) {
+		this.cin = cin;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.city = city;
+		this.tel = tel;
+		this.typeProfil = typeProfil;
+		this.service = service;
+	}
 }

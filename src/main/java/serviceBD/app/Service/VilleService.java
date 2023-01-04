@@ -15,8 +15,10 @@ public class VilleService {
 
 	public List<Ville> getAllCities() {
 		// TODO Auto-generated method stub
-		  return villeRepository.findAllcities();
+		  return villeRepository.findAll();
 	}
 
-	
+	public VilleService(VilleRepository villeRepository) {
+		this.villeRepository = villeRepository;
+	}
 }

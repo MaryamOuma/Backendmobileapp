@@ -84,11 +84,8 @@ public class PersonController {
     @ResponseBody
     public ResponseEntity<Account> saveAcc(@RequestBody Account account)
             throws GeneralSecurityException, UnsupportedEncodingException {
-        if (personService.savePerson(account.getPerson())) {
-            return new ResponseEntity<>(accountController.saveAcc(account), HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
+        personService.savePerson(account.getPerson());
+        return new ResponseEntity<>(accountController.saveAcc(account), HttpStatus.CREATED);
     }
 
     @GetMapping("/checkLogin/{tel}")

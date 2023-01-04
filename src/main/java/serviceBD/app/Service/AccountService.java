@@ -21,6 +21,10 @@ public class AccountService {
     AccountRepository accountRepository;
  //   private final JwtEncoder encoder;
 
+    public AccountService(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
+
     public Account saveAccount(Account account){
 
         return  accountRepository.save(account);
@@ -32,15 +36,8 @@ public class AccountService {
         return  accountRepository.findAll();
     }
 	public Account getUserById(int id) {
-		  Optional<Account> account = accountRepository.findById(id);
-	        Account a = null;
-	        if (account.isPresent()) {
-	            a = account.get();
-
-	        } else {
-	            throw new RuntimeException("Article doesn't exist for id: " + id);
-	        }
-	        return a;
+		 Account account= accountRepository.getReferenceById(id);
+         return account;
 	}
     public String getProfilType(String username){
         return accountRepository.findTypeProfil(username);

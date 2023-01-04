@@ -58,4 +58,9 @@ public class Account {
     @JoinColumn(name = "person_id", nullable = false)
     private Person person;
 
+	public Account(String username, String password, Person person) {
+		this.username = username;
+		this.password = password;
+		this.person = person;
+	}
 }
