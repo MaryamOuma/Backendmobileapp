@@ -67,13 +67,12 @@ class AccountRepositoryTest {
         assertThat(exists).isTrue();
     }
 
-   /* @Test
+    @Test
     void IfNotfindPerson_id() {
         Boolean exists= false;
-        long person_id= accountRepository.findPerson_id(Long.valueOf(account.getId()));
-        if(person_id==1){
+        if(accountRepository.findPerson_id(account.getId())!=null){
             exists=true;
-        }
+        };
         assertThat(exists).isFalse();
-    }*/
+    }
 }

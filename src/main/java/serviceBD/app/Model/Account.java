@@ -19,7 +19,11 @@ public class Account {
     @Column(name = "username")
     private String username;
 
-    public int getId() {
+	public Account() {
+		
+	}
+
+	public int getId() {
 		return id;
 	}
 
