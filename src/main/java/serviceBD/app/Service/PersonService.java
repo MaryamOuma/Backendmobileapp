@@ -89,7 +89,6 @@ public class PersonService {
         if (!ratingRepository.existsById(id) && !ratingRepository.existsById(id_client)) {
             return 0;
         }
-
         return ratingRepository.getRatingByClient(id, id_client);
     }
 }
