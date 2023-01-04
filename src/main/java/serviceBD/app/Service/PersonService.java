@@ -26,9 +26,8 @@ public class PersonService {
     public List<Person> getAllEmployees() {
         return personRepository.findAllEmp();
     }
-
-    public List<Person> getEmployeeByCategory(String type, String category) {
-        return personRepository.findByCategoryAndType(type, category);
+    public List<Person> getEmployeeByCategory(String category) {
+        return personRepository.findByCategoryAndType(category);
     }
 
     public Person getUserById(int id) {
@@ -77,7 +76,7 @@ public class PersonService {
 
         if (!ratingRepository.existsById(id) && !ratingRepository.existsById(id_client)) {
             return 0;
-        } else if (!ratingRepository.existsById(id) && !ratingRepository.existsById(id_client)) {
+        } else if (ratingRepository.existsById(id) && ratingRepository.existsById(id_client)) {
             return ratingRepository.getRatingByClient(id_client, id);
         }
         return ratingRepository.getRatingByClient(id_client, id);
