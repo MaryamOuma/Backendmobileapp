@@ -17,6 +17,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> getListMessages(int from, int to);
 
     //list all conversations
-    @Query(value = "select * from messages as m where m.message_from = :from or m.message_to = :from order by m.created_date", nativeQuery = true)
+//    @Query(value = "select * from messages as m where m.message_from = :from or m.message_to = :from order by m.created_date", nativeQuery = true)
+    @Query(value = "SELECT t1.* FROM messages t1 JOIN ( SELECT LEAST(message_from, message_to) user1, GREATEST(message_from, message_to) user2, MAX(created_date) created_date FROM messages t2 GROUP BY user1, user2 ) t3 ON t1.message_from IN (t3.user1, t3.user2) AND t1.message_to IN (t3.user1, t3.user2) AND t1.created_date = t3.created_date where t1.message_from = :from or t1.message_to = :from", nativeQuery = true)
     List<Message> getAllConversations(int from);
 }

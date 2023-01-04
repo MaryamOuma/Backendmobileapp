@@ -74,106 +74,114 @@ public class MessageController {
          return messageService.getListMessage(from,to);
     }
 
-    @GetMapping("/chat/listChats/{myId}")
-    public List<Message> getChats(@PathVariable("myId") int myId ){
-    	
+//    @GetMapping("/chat/listChats/{myId}")
+//    public List<Message> getChats(@PathVariable("myId") int myId ){
+//
+//
+//    	boolean foundYet = false;  // to check if the conversation with a specific person is already in the list to return
+//    	int idRecherche;
+//
+//        List<Message> redondantListConversations = new ArrayList<>();
+//        List<Message> listConversationsToReturn = new ArrayList<>();
+//
+//        redondantListConversations = messageService.fetchAll(myId);
+//
+//        Message firstMsg = redondantListConversations.get(0);
+//
+//        listConversationsToReturn.add(firstMsg);
+//        int i = 0, j = 0;
+//
+//
+//        /*
+//        for (Message conversation : redondantListConversations) {
+//
+//        	idRecherche = (conversation.getMessageFrom().getId() != myId) ?
+//        			conversation.getMessageFrom().getId() : conversation.getMessageTo().getId();
+//
+//        	for (Message conversationToKeep : redondantListConversations) {
+//
+//        		if (idRecherche == conversationToKeep.getWithPerson().getId()) {
+//        			foundYet = true;
+//        		}
+//
+//        	}
+//
+//        	if (!foundYet) {
+//        		listConversationsToReturn.add(conversation);
+//        	}
+//        }
+//        */
+//
+//        List<Integer> listInt1 = new ArrayList<>();
+//        List<Integer> listInt2 = new ArrayList<>();
+//
+//        for ( i = 1 ; i < redondantListConversations.size() ; i++) {
+//
+//        	Message conversation = redondantListConversations.get(i);
+//
+//        	listInt1.add(conversation.getMessageFrom().getId());
+//    		listInt1.add(conversation.getMessageTo().getId());
+//
+//        	for (j = 0 ; j < listConversationsToReturn.size() ; j++) {
+//
+//        		Message conversationToKeep = redondantListConversations.get(j);
+//
+//        		System.out.println("here");
+//        		System.out.println(conversation.getMessageFrom().getId());
+//        		System.out.println(myId);
+//        		System.out.println(conversationToKeep.getMessageTo().getId());
+//
+//        		/*
+//
+//        		if ( conversation.getMessageFrom().getId() != myId
+//        			&& conversation.getMessageTo().getId() != myId
+//        			&& conversationToKeep.getMessageFrom().getId() != myId
+//        			&& conversationToKeep.getMessageTo().getId() != myId
+//        			&& ( conversation.getMessageFrom().getId() == conversationToKeep.getMessageFrom().getId()
+//        			|| conversation.getMessageFrom().getId() == conversationToKeep.getMessageTo().getId()
+//        			|| conversation.getMessageTo().getId() == conversationToKeep.getMessageFrom().getId()
+//        			|| conversation.getMessageTo().getId() == conversationToKeep.getMessageTo().getId()
+//        			)
+//        			) {
+//
+//        			System.out.println("opa");
+//        			foundYet = true;
+//        		}
+//
+//        		*/
+//
+//        		listInt2.add(conversationToKeep.getMessageFrom().getId());
+//        		listInt2.add(conversationToKeep.getMessageTo().getId());
+//
+//        		if ( (listInt1.get(0) != myId && !listInt2.contains(listInt1.get(0)))
+//        			 || (listInt1.get(1) != myId && !listInt2.contains(listInt1.get(1)))  )
+//        	    {
+//        			foundYet = true;
+//        		}
+//
+//
+//
+//        	}
+//
+//        	if (!foundYet) {
+//    			System.out.println("one added");
+//        		listConversationsToReturn.add(conversation);
+//        	}
+//
+//
+//
+//        }
+//
+//
+//        return listConversationsToReturn;
+//
+//    }
 
-    	boolean foundYet = false;  // to check if the conversation with a specific person is already in the list to return
-    	int idRecherche;
-		
-        List<Message> redondantListConversations = new ArrayList<>();
-        List<Message> listConversationsToReturn = new ArrayList<>();
-        
-        redondantListConversations = messageService.fetchAll(myId);
-        
-        Message firstMsg = redondantListConversations.get(0);
-        
-        listConversationsToReturn.add(firstMsg);
-        int i = 0, j = 0;
-        	
-        
-        /*
-        for (Message conversation : redondantListConversations) {
-        	
-        	idRecherche = (conversation.getMessageFrom().getId() != myId) ? 
-        			conversation.getMessageFrom().getId() : conversation.getMessageTo().getId();
-        	
-        	for (Message conversationToKeep : redondantListConversations) {
-        		
-        		if (idRecherche == conversationToKeep.getWithPerson().getId()) {
-        			foundYet = true;
-        		}
-        			
-        	}
-        	
-        	if (!foundYet) {
-        		listConversationsToReturn.add(conversation);
-        	}
-        }
-        */
-        
-        List<Integer> listInt1 = new ArrayList<>();
-        List<Integer> listInt2 = new ArrayList<>();
-        
-        for ( i = 1 ; i < redondantListConversations.size() ; i++) {
-        	
-        	Message conversation = redondantListConversations.get(i);
-        	
-        	listInt1.add(conversation.getMessageFrom().getId());
-    		listInt1.add(conversation.getMessageTo().getId());
-        	
-        	for (j = 0 ; j < listConversationsToReturn.size() ; j++) {
-        		
-        		Message conversationToKeep = redondantListConversations.get(j);
-        		
-        		System.out.println("here");
-        		System.out.println(conversation.getMessageFrom().getId());
-        		System.out.println(myId);
-        		System.out.println(conversationToKeep.getMessageTo().getId());
-        		
-        		/*
-        		
-        		if ( conversation.getMessageFrom().getId() != myId 
-        			&& conversation.getMessageTo().getId() != myId
-        			&& conversationToKeep.getMessageFrom().getId() != myId
-        			&& conversationToKeep.getMessageTo().getId() != myId
-        			&& ( conversation.getMessageFrom().getId() == conversationToKeep.getMessageFrom().getId() 
-        			|| conversation.getMessageFrom().getId() == conversationToKeep.getMessageTo().getId() 
-        			|| conversation.getMessageTo().getId() == conversationToKeep.getMessageFrom().getId() 
-        			|| conversation.getMessageTo().getId() == conversationToKeep.getMessageTo().getId() 
-        			)
-        			) {
-        			
-        			System.out.println("opa");
-        			foundYet = true;
-        		}
-        		
-        		*/
-        		
-        		listInt2.add(conversationToKeep.getMessageFrom().getId());
-        		listInt2.add(conversationToKeep.getMessageTo().getId());
-        		
-        		if ( (listInt1.get(0) != myId && !listInt2.contains(listInt1.get(0))) 
-        			 || (listInt1.get(1) != myId && !listInt2.contains(listInt1.get(1)))  )
-        	    {
-        			foundYet = true;
-        		}
-        		
-  		
-    			
-        	}
-        	
-        	if (!foundYet) {
-    			System.out.println("one added");
-        		listConversationsToReturn.add(conversation);
-        	}
-        	
-        	
-        	
-        }
-         
-        
-        return listConversationsToReturn;
-        
+    @GetMapping("/chat/listChats/{myId}")
+    public List<Message> getChats(@PathVariable("myId") int myId){
+         List<Message> listConversations = messageService.fetchAll(myId);
+
+         return  listConversations;
     }
+
 }
