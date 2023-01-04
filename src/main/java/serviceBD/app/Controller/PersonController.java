@@ -118,35 +118,24 @@ public class PersonController {
         return personService.loginExists(login);
     }
 
+    //RATING AN EMPLOYEE
     @PostMapping("/{id}/ratings/{id_client}")
-    public Rating createRating(@RequestBody Rating rating, @PathVariable("id") int id,
-            @PathVariable("id_client") int id_client) {
-
-        personRepository.findById(id_client).map(pers -> {
-            rating.setClient(pers);
-            return ratinRepository.save(rating);
-        }).orElseThrow();
-
-        personRepository.findById(id).map(personne -> {
-            rating.setPerson(personne);
-            return ratinRepository.save(rating);
-        }).orElseThrow();
-        return ratinRepository.save(rating);
+    public Rating createRating(@RequestBody Rating rating, @PathVariable("id") int id,  @PathVariable("id_client") int id_client) {
+        return personService.createRating(rating, id, id_client);
     }
 
-    @GetMapping("/{id}/ratings")
-    public int sumRatings(@PathVariable(value = "id") int id) {
-        return personService.getAllRatingById(id);
+    @GetMapping("/{id}/ratings/{id_client}")
+    public int sumRatings(@PathVariable(value = "id") int id, @PathVariable(value = "id_client") int id_client) {
+        return personService.getAllRatingById(id, id_client);
     }
 
     @GetMapping("/{id}/sumRatingByEmp/{id_client}")
     public int sumRatingsByImp(@PathVariable(value = "id") int id, @PathVariable(value = "id_client") int id_client) {
         return personService.getSumColumnsRats(id, id_client);
-    }
+    }  
 
     @GetMapping("/{id_client}/RatingEmpByClient/{id}")
-    public int getRatOfClientForEmp(@PathVariable(value = "id_client") int id_client,
-            @PathVariable(value = "id") int id) {
-        return personService.getRatingByClient(id_client, id);
+    public int getRatingByClient(@PathVariable(value = "id") int id, @PathVariable(value = "id_client") int id_client) {
+        return personService.getRatingByClient(id, id_client);
     }
 }
