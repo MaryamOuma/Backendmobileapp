@@ -31,7 +31,7 @@ public class PersonService {
         return personRepository.findByCategoryAndType(type, category);
     }
 
-    public Person getUserById(Long id) {
+    public Person getUserById(int id) {
         Optional<Person> personne = personRepository.findById(id);
         Person a = null;
         if (personne.isPresent()) {
@@ -42,48 +42,44 @@ public class PersonService {
         }
         return a;
     }
-    
-    public boolean savePerson(Person person){
-        if(personRepository.save(person).equals(null)){
+
+    public boolean savePerson(Person person) {
+        if (personRepository.save(person).equals(null)) {
             return false;
-         }
-         else{
+        } else {
             return true;
-         }
-     }
+        }
+    }
 
     public boolean loginExists(String login) {
-    		List<String> logins = personRepository.findAllLogins();
-    		return logins.contains(login);
+        List<String> logins = personRepository.findAllLogins();
+        return logins.contains(login);
     }
 
-    public Rating createRating(Rating rating, Long id) {
-        return personRepository.findById(id).map(personne -> {
-            rating.setPerson(personne);
-            return ratingRepository.save(rating);
-        }).orElseThrow();
-    }
+    public int getAllRatingById(@PathVariable(value = "id") int id) {
 
-    public float getAllRatingById(@PathVariable(value = "id") int id) {
-        if (!ratingRepository.existsById(id)) {
-            return 0;
-        }
-
-        else if (ratingRepository.existsById(id)) {
-            return ratingRepository.sumRatingById(id);
-        }
         return ratingRepository.sumRatingById(id);
     }
 
-    public int getSumColumnsRats(@PathVariable(value = "id") int id) {
-        if (!ratingRepository.existsById(id)) {
+    public int getSumColumnsRats(int id, int id_client) {
+        if (!ratingRepository.existsById(id) && !ratingRepository.existsById(id_client)) {
             return 0;
         }
 
-        else if (ratingRepository.existsById(id)) {
+        else if (!ratingRepository.existsById(id) && !ratingRepository.existsById(id_client)) {
             return ratingRepository.sumColumnsRating(id);
         }
         return ratingRepository.sumColumnsRating(id);
 
+    }
+
+    public int getRatingByClient(int id_client, int id) {
+
+        if (!ratingRepository.existsById(id) && !ratingRepository.existsById(id_client)) {
+            return 0;
+        } else if (!ratingRepository.existsById(id) && !ratingRepository.existsById(id_client)) {
+            return ratingRepository.getRatingByClient(id_client, id);
+        }
+        return ratingRepository.getRatingByClient(id_client, id);
     }
 }

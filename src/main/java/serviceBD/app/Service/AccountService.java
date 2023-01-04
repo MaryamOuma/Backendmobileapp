@@ -31,7 +31,7 @@ public class AccountService {
     public List<Account> getAccounts(){
         return  accountRepository.findAll();
     }
-	public Account getUserById(Long id) {
+	public Account getUserById(int id) {
 		  Optional<Account> account = accountRepository.findById(id);
 	        Account a = null;
 	        if (account.isPresent()) {
@@ -42,6 +42,10 @@ public class AccountService {
 	        }
 	        return a;
 	}
+    public String getProfilType(String username){
+        return accountRepository.findTypeProfil(username);
+
+    }
 
 
 }

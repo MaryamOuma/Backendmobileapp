@@ -9,9 +9,15 @@ import org.springframework.data.jpa.repository.Query;
 import serviceBD.app.Model.Rating;
 
 public interface RatinRepository extends JpaRepository<Rating, Integer> {
-    @Query(nativeQuery = true, value = "SELECT AVG(label) from rating r where r.id = :id")
-    float sumRatingById(int id);
+    @Query(nativeQuery = true, value = "SELECT AVG(label) from rating r where r.id = :id ")
+    int sumRatingById(int id);
 
     @Query(nativeQuery = true, value = "SELECT COUNT(id_rating) from rating r where r.id = :id")
     int sumColumnsRating(int id);
+
+    @Query(nativeQuery = true, value = "SELECT label from rating r where r.id_client = :id_client AND r.id=:id")
+    int getRatingByClient(int id_client, int id);
+
+    @Query(nativeQuery = true, value = "INSERT INTO rating (id_client, id) VALUES (:id_client, :id)")
+    Rating addRating(int id, int id_client);
 }

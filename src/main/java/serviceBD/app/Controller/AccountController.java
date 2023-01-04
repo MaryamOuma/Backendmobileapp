@@ -85,23 +85,32 @@ public class AccountController {
         }
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Account> getEmployee(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Account> getEmployee(@PathVariable(value = "id") int id) {
         Account a =  accountService.getUserById(id);
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
-    public void deleteperson(@PathVariable (value = "id")  Long id ) throws AccountNotFoundException {
+    public void deleteperson(@PathVariable (value = "id")  int id ) throws AccountNotFoundException {
         
         if(!accountRepository.existsById(id)){
         	throw new AccountNotFoundException("id: "+ id);
 
         }
         else {
-        	long person_id =accountRepository.findPerson_id(id);
+        	int person_id =accountRepository.findPerson_id(id);
         	accountRepository.deleteById(id);
         	personRepository.deleteById(person_id);
     }
 		
 		
     }
+
+    @GetMapping("/profiltype/{username}")
+    public String getProfilType(@PathVariable(value="username") String username){
+
+        return accountService.getProfilType(username);
+    }
 }
+
+
+
