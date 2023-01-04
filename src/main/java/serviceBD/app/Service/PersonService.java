@@ -57,24 +57,37 @@ public class PersonService {
 
     // RATING AN EMPLOYEE
     public Rating createRating(Rating rating, int id, int id_client) {
-        personRepository.findById(id_client).map(pers -> {
-            rating.setClient(pers);
-            return ratingRepository.save(rating);
-        }).orElseThrow();
+        if (ratingRepository.getRatingByClient(id, id_client)!=null) {
+            ratingRepository.updateRating(rating.getLabel(), id_client, id);
+            return rating;
+        }else{
+            personRepository.findById(id_client).map(pers -> {
+                rating.setClient(pers);
+                return ratingRepository.save(rating);
+            }).orElseThrow();
 
-        personRepository.findById(id).map(personne -> {
-            rating.setPerson(personne);
+            personRepository.findById(id).map(personne -> {
+                rating.setPerson(personne);
+                return ratingRepository.save(rating);
+            }).orElseThrow();
             return ratingRepository.save(rating);
-        }).orElseThrow();
-        return ratingRepository.save(rating);
+        }
     }
 
-    public int getAllRatingById(int id, int id_client) {
-        return ratingRepository.sumRatingById(id);
+    public long getAllRatingById(int id, int id_client) {
+        if (ratingRepository.sumRatingById(id)==null){
+            return 0;
+        }else{
+            return ratingRepository.sumRatingById(id);
+        }
     }
 
-    public int getSumColumnsRats(int id, int id_client) {
-        return ratingRepository.sumColumnsRating(id);
+    public long getSumColumnsRats(int id, int id_client) {
+        if(ratingRepository.sumColumnsRating(id)==0){
+            return 0;
+        }else{
+            return ratingRepository.sumColumnsRating(id);
+        }
     }
 
     public long getRatingByClient(@PathVariable(value = "id") int id, @PathVariable(value = "id_client") int id_client) {

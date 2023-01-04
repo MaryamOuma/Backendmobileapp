@@ -103,12 +103,12 @@ public class PersonController {
     }
 
     @GetMapping("/{id}/ratings/{id_client}")
-    public int sumRatings(@PathVariable(value = "id") int id, @PathVariable(value = "id_client") int id_client) {
+    public long sumRatings(@PathVariable(value = "id") int id, @PathVariable(value = "id_client") int id_client) {
         return personService.getAllRatingById(id, id_client);
     }
 
     @GetMapping("/{id}/sumRatingByEmp/{id_client}")
-    public int sumRatingsByImp(@PathVariable(value = "id") int id, @PathVariable(value = "id_client") int id_client) {
+    public long sumRatingsByImp(@PathVariable(value = "id") int id, @PathVariable(value = "id_client") int id_client) {
         return personService.getSumColumnsRats(id, id_client);
     }  
 
