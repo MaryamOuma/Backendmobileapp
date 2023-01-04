@@ -70,17 +70,10 @@ public class PersonService {
     }
 
     public int getAllRatingById(int id, int id_client) {
-
-        if (!ratingRepository.existsById(id) && !ratingRepository.existsById(id_client)) {
-            return 0;
-        }
         return ratingRepository.sumRatingById(id);
     }
 
     public int getSumColumnsRats(int id, int id_client) {
-        if (!ratingRepository.existsById(id) && !ratingRepository.existsById(id_client)) {
-            return 0;
-        }
         return ratingRepository.sumColumnsRating(id);
     }
 
