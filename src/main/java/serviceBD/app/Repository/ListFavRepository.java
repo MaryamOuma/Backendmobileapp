@@ -22,6 +22,6 @@ public interface ListFavRepository extends JpaRepository<ListFavoris, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM  list_favoris WHERE employe_id=:id1 AND  client_id=:id2", nativeQuery = true)
+    @Query(value = "DELETE FROM  list_favoris WHERE employe_id=:id2 AND  client_id=:id1", nativeQuery = true)
     void deleteFav(int id1, int id2);
 }

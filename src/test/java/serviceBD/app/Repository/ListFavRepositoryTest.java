@@ -97,7 +97,7 @@ class ListFavRepositoryTest {
     void deleteFav() {
         Boolean exists= false;
         listFavRepository.addFav(person.getId(), person1.getId());
-        listFavRepository.deleteFav(person1.getId(), person.getId());
+        listFavRepository.deleteFav(person.getId(), person1.getId());
         List<ListFavoris> listFavoris= listFavRepository.getFav(person1.getId());
         for (ListFavoris favoris :
                 listFavoris  ) {
