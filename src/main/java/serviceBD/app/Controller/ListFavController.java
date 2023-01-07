@@ -36,7 +36,6 @@ public class ListFavController {
 
     @PostMapping("/deleteFav")
     public void deleteFav(@RequestParam("id1") int p1,@RequestParam("id2") int p2 ){
-        System.out.println("supress fav");
         listFavRepository.deleteFav(p1,p2);
     }
 
