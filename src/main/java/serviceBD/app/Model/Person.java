@@ -16,10 +16,10 @@ import java.util.Collection;
 @Entity
 @DynamicUpdate
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "person")
+@Table(name = "person1")
 public class Person {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "person_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int person_id;
 
@@ -120,8 +120,6 @@ public class Person {
 
     @Column(name = "imageP")
     private String imageP;
-    @Column(name = "image")
-    private String image;
 
 	@Column(name = "type_profil")
     private String typeProfil;

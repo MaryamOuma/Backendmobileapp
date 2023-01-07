@@ -13,7 +13,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
 
     //list messages d'une discussion
-    @Query(value = "select * from messages as m where m.message_from = :from and m.message_to = :to or m.message_from = :to and m.message_to = :from order by m.created_date",nativeQuery = true)
+    @Query(value = "select * from messages as m where m.message_from = :from and m.message_to = :to or m.message_from = :to and m.message_to = :from order by m.date desc",nativeQuery = true)
     List<Message> getListMessages(int from, int to);
 
     //list all conversations

@@ -30,6 +30,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @CrossOrigin(origins = {"*"})
 @RestController
+@RequestMapping("/chat")
 public class MessageController {
 
     @Autowired
@@ -41,6 +42,8 @@ public class MessageController {
     @Autowired
     private PersonService personService;
 
+    
+    /*
 
 //    @MessageMapping("/privateMessage/{to}")
 
@@ -53,7 +56,7 @@ public class MessageController {
 
        message.setMessageTo(personReceiver);
 
-       message.setCreatedDate(now);
+      // message.setCreatedDate(now);
        if(messageService.sendMessage(message)){
 
             System.out.println("handling send message:" + message + "to" + personReceiver.getFirstName() + "" + personReceiver.getLastName());
@@ -66,12 +69,35 @@ public class MessageController {
        }
 
     }
-
-
+    */
+    
+    @PostMapping("/privateMessage/save")
+    @ResponseBody
+    public Message saveMsg(@RequestBody Message message)
+            throws GeneralSecurityException, UnsupportedEncodingException {
+       // messageService.saveMessage(message.getPerson());
+    	System.out.println("msg sent");
+    	System.out.println(message.toString());
+        return messageService.saveMessage(message);
+    }
 
     @GetMapping("/chat/listMessages/{from}/{to}")
     public List<Message> getListMssg(@PathVariable("from") int from,@PathVariable("to") int to){
-         return messageService.getListMessage(from,to);
+    	List<Message> listMsgs = messageService.getListMessage(from,to);
+    	
+    	for (Message msg : listMsgs) {
+    		if (msg.getMessageFrom().getPerson_id() == from)
+    		{
+    			msg.setViewType(1);
+    		}
+    		else msg.setViewType(2);
+    	}
+    	
+       System.out.println(listMsgs.toString());
+       System.out.println(from + " " + to);
+       System.out.println("test");
+    	
+         return listMsgs;
     }
 
 //    @GetMapping("/chat/listChats/{myId}")
@@ -180,7 +206,7 @@ public class MessageController {
     @GetMapping("/chat/listChats/{myId}")
     public List<Message> getChats(@PathVariable("myId") int myId){
          List<Message> listConversations = messageService.fetchAll(myId);
-
+ 
          return  listConversations;
     }
 
