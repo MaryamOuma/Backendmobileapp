@@ -42,8 +42,6 @@ public class MessageController {
     private PersonService personService;
 
 
-//    @MessageMapping("/privateMessage/{to}")
-
     @RequestMapping(path="/privateMessage/{to}", method=POST)
     @ResponseBody
     public ResponseEntity<Message> sendMessage(@RequestBody Message message, @PathVariable int to)  throws GeneralSecurityException, UnsupportedEncodingException {
@@ -79,7 +77,6 @@ public class MessageController {
     @GetMapping("/chat/listChats/{myId}")
     public List<Message> getChats(@PathVariable("myId") int myId){
         List<Message> listConversations = messageService.fetchAll(myId);
-
         return  listConversations;
     }
 

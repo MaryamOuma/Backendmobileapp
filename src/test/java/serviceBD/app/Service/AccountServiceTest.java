@@ -16,6 +16,9 @@ import serviceBD.app.Repository.AccountRepository;
 import serviceBD.app.Repository.PersonRepository;
 import serviceBD.app.Repository.ServiceRepository;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -47,7 +50,7 @@ class AccountServiceTest {
     }
 
     @Test
-    void saveAccount() {
+    void saveAccount() throws GeneralSecurityException, UnsupportedEncodingException {
         underTest.saveAccount(account);
         ArgumentCaptor<Account> accountArgumentCaptor =
                 ArgumentCaptor.forClass(Account.class);
@@ -67,7 +70,7 @@ class AccountServiceTest {
     @Test
     void getUserById() {
         account.setId(1);
-        underTest.getUserById(1);
+        underTest.getAccountById(1);
         verify(accountRepository).getReferenceById(1);
     }
 }

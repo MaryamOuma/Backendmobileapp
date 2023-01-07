@@ -48,7 +48,6 @@ public class ServiceController {
             if(!ser.getService_title().equals("Client")) {
                 list.add(ser.getService_title());
             }
-           // System.out.println(ser.getService_title());
         }
         return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
     }

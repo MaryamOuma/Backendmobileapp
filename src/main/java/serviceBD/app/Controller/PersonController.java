@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import serviceBD.app.Repository.AccountRepository;
+import serviceBD.app.Service.AccountService;
 import serviceBD.app.Service.PersonService;
 import serviceBD.app.Model.Account;
 import serviceBD.app.Model.Person;
@@ -30,20 +32,13 @@ import serviceBD.app.Repository.RatinRepository;
 
 @RestController
 @RequestMapping("/employees")
-
 @CrossOrigin
 public class PersonController {
 
     @Autowired
     private PersonService personService;
     @Autowired
-    private PersonRepository personRepository;
-
-    @Autowired
-    private RatinRepository ratinRepository;
-
-    @Autowired
-    private AccountController accountController;
+    private AccountService accountService;
 
     public PersonService getPersonService() {
         return personService;
@@ -53,39 +48,26 @@ public class PersonController {
         this.personService = personService;
     }
 
-    public AccountController getAccountController() {
-        return accountController;
-    }
-
-    public void setAccountController(AccountController accountController) {
-        this.accountController = accountController;
-    }
 
     @GetMapping("/getAll")
     public List<Person> list() {
         return personService.getAllEmployees();
     }
 
-    public List<Person> getEmployeeByCategory(String category) {
-        return personRepository.findByCategoryAndType(category);
-    }
     @GetMapping("/{id}")
-    public ResponseEntity<Person> getEmployee(@PathVariable(value = "id") int id) {
-        Person a = personService.getUserById(id);
-        return new ResponseEntity<>(a, HttpStatus.OK);
+    public Person getEmployee(@PathVariable(value = "id") int id) {
+        return personService.getUserById(id);
     }
     @GetMapping("/getByCateg/{cat}")
     public List<Person> getByCateg(@PathVariable("cat") String category) {
         return personService.getEmployeeByCategory(category);
     }
-
-
     @PostMapping("/save")
     @ResponseBody
-    public ResponseEntity<Account> saveAcc(@RequestBody Account account)
+    public Account saveAcc(@RequestBody Account account)
             throws GeneralSecurityException, UnsupportedEncodingException {
         personService.savePerson(account.getPerson());
-        return new ResponseEntity<>(accountController.saveAcc(account), HttpStatus.CREATED);
+        return accountService.saveAccount(account);
     }
 
     @GetMapping("/checkLogin/{tel}")

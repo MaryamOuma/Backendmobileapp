@@ -37,6 +37,10 @@ public class Rating implements Serializable {
     @JoinColumn(name = "id_client")
     private Person client;
 
+    public Rating() {
+
+    }
+
 
     public int getId_rating() {
         return this.id_rating;

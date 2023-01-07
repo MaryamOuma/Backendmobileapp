@@ -40,8 +40,8 @@ public class ListFavController {
     }
 
     @GetMapping("/getFav/{id}")
-    public ResponseEntity<List<ListFavoris>> getFav(@PathVariable("id") int id){
+    public List<ListFavoris> getFav(@PathVariable("id") int id){
         List<ListFavoris> favorisList=listFavRepository.getFav(id);
-        return new ResponseEntity<>(favorisList, HttpStatus.ACCEPTED);
+        return favorisList;
     }
 }

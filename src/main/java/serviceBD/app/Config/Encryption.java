@@ -1,4 +1,4 @@
-package serviceBD.app.config;
+package serviceBD.app.Config;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
