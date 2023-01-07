@@ -84,9 +84,7 @@ public class AccountService {
             throw new AccountNotFoundException("id: "+ id);
         }
         else {
-            int person_id = Math.toIntExact(accountRepository.findPerson_id(id));
             accountRepository.deleteById(id);
-            personRepository.deleteById(person_id);
         }
     }
 

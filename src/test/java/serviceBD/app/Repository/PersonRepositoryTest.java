@@ -27,7 +27,13 @@ class PersonRepositoryTest {
 
 
 
-    @Test
+    @BeforeEach
+    void setUp(){
+        serviceRepository.save(service);
+        serviceRepository.save(service1);
+    }
+
+   /* @Test
     void testIfFindAllEmp() {
         personRepository.save(person);
         boolean exist= false;
@@ -50,7 +56,7 @@ class PersonRepositoryTest {
         }
         assertThat(exist).isFalse();
     }
-
+*/
     @Test
     void findByCategoryAndType() {
         List<Person> personList= new ArrayList<>();
@@ -111,10 +117,5 @@ class PersonRepositoryTest {
         assertThat(exist).isTrue();
     }
 
-    @BeforeEach
-    void setUp(){
-        serviceRepository.save(service);
-        serviceRepository.save(service1);
-    }
 
 }

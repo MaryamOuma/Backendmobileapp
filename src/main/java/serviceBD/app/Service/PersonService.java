@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -13,6 +14,8 @@ import serviceBD.app.Repository.PersonRepository;
 import serviceBD.app.Repository.RatinRepository;
 import serviceBD.app.Model.Person;
 import serviceBD.app.Model.Rating;
+
+import javax.security.auth.login.AccountNotFoundException;
 
 @Service
 public class PersonService {
@@ -24,7 +27,7 @@ public class PersonService {
     RatinRepository ratingRepository;
 
     public List<Person> getAllEmployees() {
-        return personRepository.findAllEmp();
+        return personRepository.findAll();
     }
     public List<Person> getEmployeeByCategory(String category) {
         return personRepository.findByCategoryAndType(category);
@@ -42,6 +45,14 @@ public class PersonService {
     public boolean loginExists(String login) {
         List<String> logins = personRepository.findAllLogins();
         return logins.contains(login);
+    }
+    public void deletePerson(int id) throws ChangeSetPersister.NotFoundException {
+        if(!personRepository.existsById(id)){
+            throw new ChangeSetPersister.NotFoundException();
+        }
+        else {
+            personRepository.deleteById(id);
+        }
     }
 
     // RATING AN EMPLOYEE
@@ -64,29 +75,34 @@ public class PersonService {
     }
 
     public long getAllRatingById(int id, int id_client) {
-        if (ratingRepository.sumRatingById(id)==null){
+        Long sum= ratingRepository.sumRatingById(id);
+        if (sum.equals(null)){
             return 0;
-        }else{
-            return ratingRepository.sumRatingById(id);
+        }else {
+            return sum;
         }
     }
 
     public long getSumColumnsRats(int id, int id_client) {
-        if(ratingRepository.sumColumnsRating(id)==0){
+        Long sum= ratingRepository.sumColumnsRating(id);
+        if (sum.equals(null)){
             return 0;
-        }else{
-            return ratingRepository.sumColumnsRating(id);
+        }else {
+            return sum;
         }
     }
 
     public long getRatingByClient(@PathVariable(value = "id") int id, @PathVariable(value = "id_client") int id_client) {
-        if (ratingRepository.getRatingByClient(id, id_client)==null) {
+        Long sum= ratingRepository.getRatingByClient(id, id_client);
+        if (sum.equals(null)){
             return 0;
+        }else {
+            return sum;
         }
-        return ratingRepository.getRatingByClient(id, id_client);
     }
 
-    public PersonService(PersonRepository personRepository) {
+    public PersonService(PersonRepository personRepository, RatinRepository ratingRepository) {
         this.personRepository = personRepository;
+        this.ratingRepository=ratingRepository;
     }
 }

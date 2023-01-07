@@ -3,6 +3,7 @@ package serviceBD.app.Controller;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import serviceBD.app.Model.Account;
 import serviceBD.app.Repository.AccountRepository;
 import serviceBD.app.Repository.PersonRepository;
 import serviceBD.app.Service.AccountService;
+import serviceBD.app.Service.PersonService;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.security.auth.login.AccountNotFoundException;
@@ -33,8 +35,12 @@ public class AccountController {
 
     @Autowired
     AccountRepository accountRepository;
+
     @Autowired
     PersonRepository personRepository;
+
+    @Autowired
+    PersonService personService;
 
 
     @PostMapping ("/login")
@@ -52,8 +58,9 @@ public class AccountController {
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
-    public void deleteperson(@PathVariable (value = "id")  int id ) throws AccountNotFoundException {
+    public void deleteperson(@PathVariable (value = "id")  int id ) throws AccountNotFoundException, ChangeSetPersister.NotFoundException {
         accountService.deleteAccount(id);
+        personService.deletePerson(id);
     }
 
     @GetMapping("/profiltype/{username}")

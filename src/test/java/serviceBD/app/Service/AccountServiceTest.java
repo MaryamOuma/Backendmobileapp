@@ -16,11 +16,17 @@ import serviceBD.app.Repository.AccountRepository;
 import serviceBD.app.Repository.PersonRepository;
 import serviceBD.app.Repository.ServiceRepository;
 
+import javax.security.auth.login.AccountNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @DataJpaTest
@@ -68,9 +74,23 @@ class AccountServiceTest {
     }
 
     @Test
-    void getUserById() {
+    void getAccountById() {
         account.setId(1);
         underTest.getAccountById(1);
         verify(accountRepository).getReferenceById(1);
+    }
+
+    @Test
+    void deleteAccount() throws AccountNotFoundException {
+        given(accountRepository.existsById(account.getId()))
+                .willReturn(true);
+        underTest.deleteAccount(account.getId());
+        verify(accountRepository).deleteById(account.getId());
+    }
+    @Test
+    void verifyAccount() throws GeneralSecurityException, IOException {
+       accountRepository.save(account);
+       underTest.verifyAccount(account);
+       verify(accountRepository).findByUsername(account.getUsername());
     }
 }

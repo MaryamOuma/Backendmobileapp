@@ -66,4 +66,28 @@ class RatinRepositoryTest {
         }
         assertThat(exist).isTrue();
     }
+
+    @Test
+    void getRatingByClient() {
+        rating.setLabel(2);
+        ratinRepository.save(rating);
+        boolean exist= false;
+        long sum= ratinRepository.getRatingByClient(person.getId(),person1.getId());
+        if(sum==2){
+            exist=true;
+        }
+        assertThat(exist).isTrue();
+    }
+
+    @Test
+    void updateRating(){
+        boolean exist=false;
+        ratinRepository.save(rating);
+        ratinRepository.updateRating(5, person1.getId(), person.getId());
+        long sum= ratinRepository.getRatingByClient(person.getId(),person1.getId());
+        if(sum==5){
+            exist=true;
+        }
+        assertThat(exist).isTrue();
+    }
 }

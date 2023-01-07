@@ -75,4 +75,26 @@ class AccountRepositoryTest {
         };
         assertThat(exists).isFalse();
     }
+
+    @Test
+    void findTypeProfil(){
+        personRepository.save(person);
+        accountRepository.save(account);
+        Boolean exists= false;
+        if(accountRepository.findTypeProfil("salma@gmail.com").equals("Employé")){
+            exists=true;
+        }
+        assertThat(exists).isTrue();
+    }
+    @Test
+    void ifNotfindTypeProfil(){
+        person.setTypeProfil("Client");
+        personRepository.save(person);
+        accountRepository.save(account);
+        Boolean exists= false;
+        if(accountRepository.findTypeProfil("salma@gmail.com").equals("Employé")){
+            exists=true;
+        }
+        assertThat(exists).isFalse();
+    }
 }
