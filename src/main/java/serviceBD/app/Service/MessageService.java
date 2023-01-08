@@ -17,28 +17,33 @@ import java.util.Map;
 public class MessageService {
 
 
-    @Autowired
+	@Autowired
     MessageRepository messageRepository;
 
-
+/*
     public boolean sendMessage(Message message){
-
         if(messageRepository.save(message).equals(null)){
             return false;
         }
         return true;
     }
-
+    */
+    
+    public Message saveMessage(Message message) {
+        return messageRepository.save(message);
+    }
+    
     public List<Message> getListMessage(int from,int to){
 
         return messageRepository.getListMessages(from, to);
     }
-
+    
     public List<Message> fetchAll(int myId){
-
+    	
         List <Message> getAllConversations = messageRepository.getAllConversations(myId);
         return getAllConversations;
 
     }
+
 
 }

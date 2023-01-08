@@ -30,6 +30,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @CrossOrigin(origins = {"*"})
 @RestController
+@RequestMapping("/chat")
 public class MessageController {
 
     @Autowired
@@ -40,44 +41,55 @@ public class MessageController {
 
     @Autowired
     private PersonService personService;
-
-
-    @RequestMapping(path="/privateMessage/{to}", method=POST)
+    
+    @PostMapping("/privateMessage/save")
     @ResponseBody
-    public ResponseEntity<Message> sendMessage(@RequestBody Message message, @PathVariable int to)  throws GeneralSecurityException, UnsupportedEncodingException {
-        LocalDateTime now = LocalDateTime.now();
-
-        Person personReceiver = personService.getUserById(to);
-
-        message.setMessageTo(personReceiver);
-
-        message.setCreatedDate(now);
-        if(messageService.sendMessage(message)){
-
-            System.out.println("handling send message:" + message + "to" + personReceiver.getFirstName() + "" + personReceiver.getLastName());
-
-            simpMessagingTemplate.convertAndSend("/topic/privateMessage/" + to, message);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }
-        else{
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
-
+    public Message saveMsg(@RequestBody Message message)
+            throws GeneralSecurityException, UnsupportedEncodingException {
+       // messageService.saveMessage(message.getPerson());
+    	System.out.println("msg sent");
+    	System.out.println(message.toString());
+    	
+    	// Find date and convert it :
+    	LocalDateTime currentDateTime = LocalDateTime.now();
+    	
+    	DateTimeFormatter customFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");;
+    	String formattedString = currentDateTime.format(customFormat);
+    	System.out.println(formattedString);    //2022-12-09 18:25:58
+    	
+    	message.setDate(formattedString);
+    	
+        return messageService.saveMessage(message);
     }
-
-
 
     @GetMapping("/chat/listMessages/{from}/{to}")
     public List<Message> getListMssg(@PathVariable("from") int from,@PathVariable("to") int to){
-        return messageService.getListMessage(from,to);
+    	List<Message> listMsgs = messageService.getListMessage(from,to);
+    	
+    	for (Message msg : listMsgs) {
+    		if (msg.getMessageFrom().getId() == from)
+    		{
+    			msg.setViewType(1);
+    		}
+    		else msg.setViewType(2);
+    	}
+    	
+       System.out.println(listMsgs.toString());
+       System.out.println(from + " " + to);
+       System.out.println("test");
+    	
+         return listMsgs;
     }
 
 
 
     @GetMapping("/chat/listChats/{myId}")
     public List<Message> getChats(@PathVariable("myId") int myId){
-        List<Message> listConversations = messageService.fetchAll(myId);
-        return  listConversations;
+         List<Message> listConversations = messageService.fetchAll(myId);
+         
+         System.out.println("well am here");
+ 
+         return  listConversations;
     }
 
 }
