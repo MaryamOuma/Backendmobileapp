@@ -78,6 +78,16 @@ public class MessageController {
        // messageService.saveMessage(message.getPerson());
     	System.out.println("msg sent");
     	System.out.println(message.toString());
+    	
+    	// Find date and convert it :
+    	LocalDateTime currentDateTime = LocalDateTime.now();
+    	
+    	DateTimeFormatter customFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");;
+    	String formattedString = currentDateTime.format(customFormat);
+    	System.out.println(formattedString);    //2022-12-09 18:25:58
+    	
+    	message.setDate(formattedString);
+    	
         return messageService.saveMessage(message);
     }
 
@@ -206,6 +216,8 @@ public class MessageController {
     @GetMapping("/chat/listChats/{myId}")
     public List<Message> getChats(@PathVariable("myId") int myId){
          List<Message> listConversations = messageService.fetchAll(myId);
+         
+         System.out.println("well am here");
  
          return  listConversations;
     }
