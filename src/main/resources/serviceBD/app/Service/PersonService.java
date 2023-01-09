@@ -29,7 +29,7 @@ public class PersonService {
     }
 
     public Person getUserById(Long id) {
-        Optional<Person> personne = personRepository.findById((long) id);
+        Optional<Person> personne = personRepository.findById(id);
         Person a = null;
         if (personne.isPresent()) {
             a = personne.get();
@@ -53,4 +53,6 @@ public class PersonService {
     		List<String> logins = personRepository.findAllLogins();
     		return logins.contains(login);
     }
+    
+    
 }

@@ -14,8 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
-@RequiredArgsConstructor
 @Data
 @Entity
 @DynamicUpdate
@@ -23,16 +21,16 @@ import lombok.RequiredArgsConstructor;
 @Table(name = "ville")
 public class Ville {
 	  @Id
-	    @Column(name = "id", nullable = false)
+	    @Column(name = "ville_id", nullable = false)
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private int id;
+	    private int id_ville;
 	  @Column(name = "nom_ville")
 	    private String nom_ville;
 	public int getId() {
-		return id;
+		return id_ville;
 	}
 	public void setId(int id) {
-		this.id = id;
+		this.id_ville = id;
 	}
 	public String getNom_ville() {
 		return nom_ville;

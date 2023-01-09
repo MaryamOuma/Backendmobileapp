@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,17 +19,20 @@ import java.util.Set;
 @DynamicUpdate
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "person")
-public class Person {
+public class Person implements Serializable{
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
-    public int getId() {
+    
+    
+
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -121,6 +125,7 @@ public class Person {
 
     @Column(name = "imageP")
     private String imageP;
+    
     @Column(name = "image")
     private String image;
 
@@ -142,4 +147,16 @@ public class Person {
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.DETACH )
     @JoinColumn(name = "service_id")
     private Service service;
+    /*
+   @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.DETACH )
+    @JoinColumn(name = "ville_id")
+    private Ville ville;
+
+	public Ville getVille() {
+		return ville;
+	}
+
+	public void setVille(Ville ville) {
+		this.ville = ville;
+	}*/
 }
