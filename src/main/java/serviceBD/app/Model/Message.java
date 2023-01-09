@@ -38,6 +38,11 @@ public class Message {
 
   @Column(name = "date")
   private String date;
-  
 
+  public Message(Person messageTo, Person messageFrom, String messageText, String date) {
+    this.messageTo = messageTo;
+    this.messageFrom = messageFrom;
+    this.messageText = messageText;
+    this.date = date;
+  }
 }

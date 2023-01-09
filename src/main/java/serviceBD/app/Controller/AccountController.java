@@ -34,7 +34,7 @@ public class AccountController {
     AccountService accountService;
 
     @Autowired
-    AccountRepository accountRepository;
+    AccountRepository kslqdhfaccountRepository;
 
     @Autowired
     PersonRepository personRepository;
