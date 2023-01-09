@@ -75,29 +75,29 @@ public class PersonService {
     }
 
     public long getAllRatingById(int id, int id_client) {
-        Long sum= ratingRepository.sumRatingById(id);
-        if (sum.equals(null)){
+       // Long sum= ratingRepository.sumRatingById(id);
+        if (ratingRepository.sumRatingById(id)==null){
             return 0;
         }else {
-            return sum;
+            return ratingRepository.sumRatingById(id);
         }
     }
 
     public long getSumColumnsRats(int id, int id_client) {
-        Long sum= ratingRepository.sumColumnsRating(id);
-        if (sum.equals(null)){
+        //Long sum= ratingRepository.sumColumnsRating(id);
+        if (ratingRepository.sumColumnsRating(id).equals(null)){
             return 0;
         }else {
-            return sum;
+            return ratingRepository.sumColumnsRating(id);
         }
     }
 
     public long getRatingByClient(@PathVariable(value = "id") int id, @PathVariable(value = "id_client") int id_client) {
-        Long sum= ratingRepository.getRatingByClient(id, id_client);
-        if (sum.equals(null)){
+       // Long sum= ratingRepository.getRatingByClient(id, id_client);
+        if (ratingRepository.getRatingByClient(id, id_client)==null){
             return 0;
         }else {
-            return sum;
+            return ratingRepository.getRatingByClient(id, id_client);
         }
     }
 
