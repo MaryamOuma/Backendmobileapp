@@ -3,6 +3,8 @@ package serviceBD.app.Model;
 import java.io.Serializable;
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,7 +19,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
-
+@AllArgsConstructor
+@RequiredArgsConstructor
+@Data
 @Entity
 @DynamicUpdate
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
