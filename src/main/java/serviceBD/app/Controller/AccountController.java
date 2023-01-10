@@ -104,6 +104,7 @@ public class AccountController {
             per.setTel(account.getPerson().getTel());
             per.setImageP(account.getPerson().getImageP());
             per.setCin(account.getPerson().getCin());
+            per.setService(account.getPerson().getService());
             per.setFirstName(account.getPerson().getFirstName());
             per.setLastName(account.getPerson().getLastName());
             per.setDescription(account.getPerson().getDescription());
